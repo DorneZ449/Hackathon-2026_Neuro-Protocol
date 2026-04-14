@@ -40,7 +40,8 @@ const Login: React.FC = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">ClientHub</h1>
+          <h1 className="text-3xl font-bold text-gray-800 mb-1">КлиентХаб</h1>
+          <p className="text-sm text-gray-500 mb-2">ClientHub</p>
           <p className="text-gray-600">CRM система для управления клиентами</p>
         </div>
 
@@ -137,7 +138,7 @@ const Login: React.FC = () => {
         </div>
 
         <div className="mt-6 text-center text-sm text-gray-600">
-          <p>© 2026 ClientHub. Все права защищены.</p>
+          <p>© 2026 КлиентХаб (ClientHub). Все права защищены.</p>
         </div>
       </div>
     </div>
