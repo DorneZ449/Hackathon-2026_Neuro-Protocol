@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ProfileDropdown from './ProfileDropdown';
+import CurrencySelector from './CurrencySelector';
 
 const Navbar: React.FC = () => {
   const { user } = useAuth();
@@ -57,7 +58,10 @@ const Navbar: React.FC = () => {
           </div>
 
           {user && (
-            <ProfileDropdown />
+            <div className="flex items-center gap-4">
+              <CurrencySelector />
+              <ProfileDropdown />
+            </div>
           )}
         </div>
       </div>

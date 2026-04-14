@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCurrency } from '../hooks/useCurrency';
 import api from '../api/axios';
 
 interface User {
@@ -47,6 +48,7 @@ interface AdminData {
 export default function Admin() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { format } = useCurrency();
   const [data, setData] = useState<AdminData | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'users' | 'clients' | 'orders' | 'interactions'>('users');
@@ -206,7 +208,7 @@ export default function Admin() {
                 <tr key={order.id}>
                   <td className="px-6 py-4 whitespace-nowrap">{order.id}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{order.client_id}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{order.amount} ₽</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{format(order.amount)}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 rounded text-xs ${
                       order.status === 'completed' ? 'bg-green-100 text-green-800' :

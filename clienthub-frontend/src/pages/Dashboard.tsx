@@ -2,9 +2,11 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { dashboardAPI } from '../api/dashboard';
 import { useNavigate } from 'react-router-dom';
+import { useCurrency } from '../hooks/useCurrency';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
+  const { format } = useCurrency();
   const { data, isLoading } = useQuery({
     queryKey: ['dashboard'],
     queryFn: dashboardAPI.getStats,
@@ -72,7 +74,7 @@ const Dashboard: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600 mb-1">Сумма заказов</p>
-              <p className="text-3xl font-bold text-gray-800">{stats.ordersTotal.toLocaleString('ru-RU')} ₽</p>
+              <p className="text-3xl font-bold text-gray-800">{format(stats.ordersTotal)}</p>
             </div>
             <div className="bg-yellow-100 p-3 rounded-lg">
               <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
