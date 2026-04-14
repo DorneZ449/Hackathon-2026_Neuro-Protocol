@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ClientList from './pages/ClientList';
 import ClientDetails from './pages/ClientDetails';
+import Admin from './pages/Admin';
 import './index.css';
 
 const queryClient = new QueryClient();
@@ -43,6 +44,15 @@ function App() {
                   <ProtectedRoute>
                     <Navbar />
                     <ClientDetails />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute>
+                    <Navbar />
+                    <Admin />
                   </ProtectedRoute>
                 }
               />
