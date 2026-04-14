@@ -8,6 +8,32 @@ export default function Profile() {
   const [avatarUrl, setAvatarUrl] = useState(user?.avatar_url || '');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [uploadingImage, setUploadingImage] = useState(false);
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      setMessage('Файл слишком большой. Максимум 2 МБ');
+      return;
+    }
+
+    setUploadingImage(true);
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setAvatarUrl(reader.result as string);
+      setUploadingImage(false);
+    };
+
+    reader.onerror = () => {
+      setMessage('Ошибка загрузки изображения');
+      setUploadingImage(false);
+    };
+
+    reader.readAsDataURL(file);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,27 +101,30 @@ export default function Profile() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              URL аватарки
+              Аватарка
             </label>
-            <input
-              type="url"
-              value={avatarUrl}
-              onChange={(e) => setAvatarUrl(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="https://example.com/avatar.jpg"
-            />
+            <div className="flex items-center gap-4">
+              <label className="flex-1 cursor-pointer">
+                <div className="w-full px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 transition-colors text-center">
+                  {uploadingImage ? (
+                    <span className="text-gray-500">Загрузка...</span>
+                  ) : (
+                    <span className="text-gray-600">
+                      Нажмите для загрузки изображения
+                    </span>
+                  )}
+                </div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+              </label>
+            </div>
             <p className="text-xs text-gray-500 mt-1">
-              Вставьте ссылку на изображение (например, с Imgur, Gravatar или другого хостинга)
+              Поддерживаются JPG, PNG, GIF. Максимум 2 МБ
             </p>
-          </div>
-
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h3 className="font-medium text-blue-900 mb-2">Как загрузить аватарку:</h3>
-            <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
-              <li>Загрузите изображение на <a href="https://imgur.com/upload" target="_blank" rel="noopener noreferrer" className="underline">Imgur.com</a></li>
-              <li>Скопируйте прямую ссылку на изображение</li>
-              <li>Вставьте ссылку в поле выше</li>
-            </ol>
           </div>
 
           <button
