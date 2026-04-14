@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 
 interface User {
@@ -42,9 +44,17 @@ interface AdminData {
 }
 
 export default function Admin() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [data, setData] = useState<AdminData | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'users' | 'clients' | 'orders' | 'interactions'>('users');
+
+  useEffect(() => {
+    if (user && user.role !== 'admin') {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const fetchData = async () => {
     try {

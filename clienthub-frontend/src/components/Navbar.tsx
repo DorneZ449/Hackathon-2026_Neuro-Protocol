@@ -54,16 +54,18 @@ const Navbar: React.FC = () => {
               >
                 Клиенты
               </button>
-              <button
-                onClick={() => navigate('/admin')}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  isActive('/admin')
-                    ? 'bg-blue-50 text-blue-600'
-                    : 'text-gray-600 hover:bg-gray-50'
-                }`}
-              >
-                Админ
-              </button>
+              {user?.role === 'admin' && (
+                <button
+                  onClick={() => navigate('/admin')}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                    isActive('/admin')
+                      ? 'bg-blue-50 text-blue-600'
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  Админ
+                </button>
+              )}
             </div>
           </div>
 
