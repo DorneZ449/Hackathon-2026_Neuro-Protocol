@@ -19,7 +19,7 @@ export const register = async (req: AuthRequest, res: Response) => {
 
     const password_hash = await bcrypt.hash(password, 10);
     const result = await query(
-      'INSERT INTO users (email, password_hash, name) VALUES ($1, $2, $3) RETURNING id, email, name, role',
+      'INSERT INTO users (email, password_hash, name) VALUES ($1, $2, $3) RETURNING id, email, name, role, avatar_url',
       [email, password_hash, name]
     );
 
@@ -68,7 +68,8 @@ export const login = async (req: AuthRequest, res: Response) => {
         id: user.id,
         email: user.email,
         name: user.name,
-        role: user.role
+        role: user.role,
+        avatar_url: user.avatar_url
       },
       token
     });
@@ -80,7 +81,7 @@ export const login = async (req: AuthRequest, res: Response) => {
 
 export const getMe = async (req: AuthRequest, res: Response) => {
   try {
-    const result = await query('SELECT id, email, name, role FROM users WHERE id = $1', [req.user?.id]);
+    const result = await query('SELECT id, email, name, role, avatar_url FROM users WHERE id = $1', [req.user?.id]);
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Пользователь не найден' });
     }
