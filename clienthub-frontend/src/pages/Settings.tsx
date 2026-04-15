@@ -57,7 +57,10 @@ export default function Settings() {
 
         <div>
           <h2 className="text-xl font-semibold mb-4">Безопасность</h2>
-          <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+          <button
+            onClick={() => alert('Функция изменения пароля будет доступна в следующей версии')}
+            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+          >
             Изменить пароль
           </button>
           <p className="text-sm text-gray-500 mt-2">Функция в разработке</p>
@@ -80,7 +83,14 @@ export default function Settings() {
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-red-600">Опасная зона</h2>
-          <button className="px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors">
+          <button
+            onClick={() => {
+              if (window.confirm('Вы уверены, что хотите удалить аккаунт? Это действие необратимо!')) {
+                alert('Функция удаления аккаунта будет доступна в следующей версии');
+              }
+            }}
+            className="px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
+          >
             Удалить аккаунт
           </button>
           <p className="text-sm text-gray-500 mt-2">Это действие необратимо</p>
