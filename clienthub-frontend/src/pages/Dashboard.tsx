@@ -192,7 +192,7 @@ const Dashboard: React.FC = () => {
                         <td className="py-3 px-4 text-sm text-center text-gray-800">{client.orders_count}</td>
                         <td className="py-3 px-4 text-sm text-center text-gray-800">{client.interactions_count}</td>
                         <td className="py-3 px-4 text-sm text-right font-semibold text-gray-800">
-                          {parseFloat(client.total_amount).toLocaleString('ru-RU')} ₽
+                          {format(parseFloat(client.total_amount))}
                         </td>
                       </tr>
                     ))}

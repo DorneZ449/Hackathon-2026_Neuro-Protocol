@@ -53,6 +53,7 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'users' | 'clients' | 'orders' | 'interactions'>('users');
   const [searchQuery, setSearchQuery] = useState('');
+  const [changingRoleUserId, setChangingRoleUserId] = useState<number | null>(null);
 
   useEffect(() => {
     if (user && user.role !== 'admin') {
@@ -72,6 +73,7 @@ export default function Admin() {
   };
 
   const changeUserRole = async (userId: number, newRole: string) => {
+    setChangingRoleUserId(userId);
     try {
       await api.put(`/admin/users/${userId}/role`, { role: newRole });
       fetchData();
@@ -79,6 +81,8 @@ export default function Admin() {
     } catch (error) {
       console.error('Error changing role:', error);
       alert('Ошибка изменения роли');
+    } finally {
+      setChangingRoleUserId(null);
     }
   };
 
@@ -193,16 +197,18 @@ export default function Admin() {
                     {u.role === 'admin' ? (
                       <button
                         onClick={() => changeUserRole(u.id, 'user')}
-                        className="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 text-sm"
+                        disabled={changingRoleUserId === u.id}
+                        className="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Снять админа
+                        {changingRoleUserId === u.id ? 'Изменение...' : 'Снять админа'}
                       </button>
                     ) : (
                       <button
                         onClick={() => changeUserRole(u.id, 'admin')}
-                        className="px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 text-sm"
+                        disabled={changingRoleUserId === u.id}
+                        className="px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Сделать админом
+                        {changingRoleUserId === u.id ? 'Изменение...' : 'Сделать админом'}
                       </button>
                     )}
                   </td>

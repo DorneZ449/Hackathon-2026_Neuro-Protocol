@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 
 export default function Profile() {
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
   const [name, setName] = useState(user?.name || '');
   const [avatarUrl, setAvatarUrl] = useState(user?.avatar_url || '');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [uploadingImage, setUploadingImage] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setAvatarUrl(user.avatar_url || '');
+    }
+  }, [user]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -69,7 +76,9 @@ export default function Profile() {
     try {
       await api.put('/profile/update', { name, avatar_url: avatarUrl });
       setMessage('Профиль успешно обновлён');
-      window.location.reload();
+      if (refreshUser) {
+        await refreshUser();
+      }
     } catch (error) {
       setMessage('Ошибка обновления профиля');
     } finally {

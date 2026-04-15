@@ -19,6 +19,7 @@ const ClientList: React.FC = () => {
     notes: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isCreating, setIsCreating] = useState(false);
 
   const navigate = useNavigate();
 
@@ -63,6 +64,7 @@ const ClientList: React.FC = () => {
       return;
     }
 
+    setIsCreating(true);
     try {
       await clientAPI.create(formData);
       setShowModal(false);
@@ -72,6 +74,8 @@ const ClientList: React.FC = () => {
     } catch (error) {
       console.error('Ошибка создания клиента:', error);
       setErrors({ submit: 'Ошибка при создании клиента' });
+    } finally {
+      setIsCreating(false);
     }
   };
 
@@ -431,9 +435,10 @@ const ClientList: React.FC = () => {
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  disabled={isCreating}
+                  className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Создать
+                  {isCreating ? 'Создание...' : 'Создать'}
                 </button>
                 <button
                   type="button"
@@ -441,7 +446,8 @@ const ClientList: React.FC = () => {
                     setShowModal(false);
                     setErrors({});
                   }}
-                  className="flex-1 bg-gray-100 text-gray-700 py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                  disabled={isCreating}
+                  className="flex-1 bg-gray-100 text-gray-700 py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
                 >
                   Отмена
                 </button>

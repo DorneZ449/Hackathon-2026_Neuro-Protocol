@@ -3,14 +3,20 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams, useNavigate } from 'react-router-dom';
 import { clientAPI } from '../api/clients';
 import { orderAPI, interactionAPI, commentAPI } from '../api/index';
+import { useCurrency } from '../hooks/useCurrency';
 
 const ClientDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { format } = useCurrency();
   const [activeTab, setActiveTab] = useState<'orders' | 'interactions' | 'comments'>('orders');
   const [showOrderModal, setShowOrderModal] = useState(false);
   const [showInteractionModal, setShowInteractionModal] = useState(false);
   const [commentText, setCommentText] = useState('');
+  const [isCreatingOrder, setIsCreatingOrder] = useState(false);
+  const [isCreatingInteraction, setIsCreatingInteraction] = useState(false);
+  const [isCreatingComment, setIsCreatingComment] = useState(false);
+  const [isDeletingClient, setIsDeletingClient] = useState(false);
 
   const [orderForm, setOrderForm] = useState({
     title: '',
@@ -31,6 +37,7 @@ const ClientDetails: React.FC = () => {
 
   const handleCreateOrder = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsCreatingOrder(true);
     try {
       await orderAPI.create({
         client_id: Number(id),
@@ -42,11 +49,15 @@ const ClientDetails: React.FC = () => {
       refetch();
     } catch (error) {
       console.error('Ошибка создания заказа:', error);
+      alert('Ошибка при создании заказа');
+    } finally {
+      setIsCreatingOrder(false);
     }
   };
 
   const handleCreateInteraction = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsCreatingInteraction(true);
     try {
       await interactionAPI.create({
         client_id: Number(id),
@@ -57,12 +68,16 @@ const ClientDetails: React.FC = () => {
       refetch();
     } catch (error) {
       console.error('Ошибка создания взаимодействия:', error);
+      alert('Ошибка при создании взаимодействия');
+    } finally {
+      setIsCreatingInteraction(false);
     }
   };
 
   const handleCreateComment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!commentText.trim()) return;
+    setIsCreatingComment(true);
     try {
       await commentAPI.create({
         client_id: Number(id),
@@ -72,16 +87,23 @@ const ClientDetails: React.FC = () => {
       refetch();
     } catch (error) {
       console.error('Ошибка создания комментария:', error);
+      alert('Ошибка при создании комментария');
+    } finally {
+      setIsCreatingComment(false);
     }
   };
 
   const handleDeleteClient = async () => {
     if (window.confirm('Вы уверены, что хотите удалить этого клиента? Все связанные данные будут удалены.')) {
+      setIsDeletingClient(true);
       try {
         await clientAPI.delete(Number(id));
         navigate('/clients');
       } catch (error) {
         console.error('Ошибка удаления клиента:', error);
+        alert('Ошибка при удалении клиента');
+      } finally {
+        setIsDeletingClient(false);
       }
     }
   };
@@ -230,14 +252,15 @@ const ClientDetails: React.FC = () => {
             <div className="bg-blue-50 rounded-lg p-4 text-center">
               <p className="text-sm text-gray-600 mb-1">Сумма заказов</p>
               <p className="text-2xl font-bold text-blue-600">
-                {totalOrdersAmount.toLocaleString('ru-RU')} ₽
+                {format(totalOrdersAmount)}
               </p>
             </div>
             <button
               onClick={handleDeleteClient}
-              className="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors font-medium"
+              disabled={isDeletingClient}
+              className="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Удалить клиента
+              {isDeletingClient ? 'Удаление...' : 'Удалить клиента'}
             </button>
           </div>
         </div>
@@ -319,7 +342,7 @@ const ClientDetails: React.FC = () => {
                         <div className="text-right ml-4">
                           {order.amount && (
                             <p className="text-xl font-bold text-gray-800 mb-2">
-                              {order.amount.toLocaleString('ru-RU')} ₽
+                              {format(order.amount)}
                             </p>
                           )}
                           <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(order.status)}`}>
@@ -401,10 +424,10 @@ const ClientDetails: React.FC = () => {
                 />
                 <button
                   type="submit"
-                  disabled={!commentText.trim()}
+                  disabled={!commentText.trim() || isCreatingComment}
                   className="mt-3 bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
                 >
-                  Добавить комментарий
+                  {isCreatingComment ? 'Добавление...' : 'Добавить комментарий'}
                 </button>
               </form>
               <div className="space-y-4">
@@ -499,14 +522,16 @@ const ClientDetails: React.FC = () => {
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  disabled={isCreatingOrder}
+                  className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Создать
+                  {isCreatingOrder ? 'Создание...' : 'Создать'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowOrderModal(false)}
-                  className="flex-1 bg-gray-100 text-gray-700 py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                  disabled={isCreatingOrder}
+                  className="flex-1 bg-gray-100 text-gray-700 py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
                 >
                   Отмена
                 </button>
@@ -555,14 +580,16 @@ const ClientDetails: React.FC = () => {
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  disabled={isCreatingInteraction}
+                  className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Создать
+                  {isCreatingInteraction ? 'Создание...' : 'Создать'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowInteractionModal(false)}
-                  className="flex-1 bg-gray-100 text-gray-700 py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                  disabled={isCreatingInteraction}
+                  className="flex-1 bg-gray-100 text-gray-700 py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
                 >
                   Отмена
                 </button>
