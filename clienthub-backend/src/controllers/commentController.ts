@@ -10,11 +10,22 @@ export const createComment = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ error: 'client_id и text обязательны' });
     }
 
+    // Validate client_id is a number
+    const clientIdNum = parseInt(client_id);
+    if (isNaN(clientIdNum)) {
+      return res.status(400).json({ error: 'Неверный формат client_id' });
+    }
+
+    // Validate text length (max 2000 chars)
+    if (text.length > 2000) {
+      return res.status(400).json({ error: 'Текст комментария не может превышать 2000 символов' });
+    }
+
     const result = await query(
-      `INSERT INTO comments (client_id, text, created_by) 
-       VALUES ($1, $2, $3) 
+      `INSERT INTO comments (client_id, text, created_by)
+       VALUES ($1, $2, $3)
        RETURNING *`,
-      [client_id, text, req.user?.id]
+      [clientIdNum, text, req.user?.id]
     );
 
     res.status(201).json(result.rows[0]);
@@ -27,10 +38,24 @@ export const createComment = async (req: AuthRequest, res: Response) => {
 export const deleteComment = async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const result = await query('DELETE FROM comments WHERE id = $1 RETURNING *', [id]);
+
+    // Validate ID
+    const commentId = parseInt(id);
+    if (isNaN(commentId)) {
+      return res.status(400).json({ error: 'Неверный формат ID' });
+    }
+
+    // Check if user is admin
+    const isAdmin = req.user?.role === 'admin';
+
+    // Delete with ownership check (admin can delete any comment)
+    const result = await query(
+      'DELETE FROM comments WHERE id = $1 AND (created_by = $2 OR $3 = true) RETURNING *',
+      [commentId, req.user?.id, isAdmin]
+    );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'Комментарий не найден' });
+      return res.status(404).json({ error: 'Комментарий не найден или у вас нет прав на его удаление' });
     }
 
     res.json({ message: 'Комментарий удален' });
