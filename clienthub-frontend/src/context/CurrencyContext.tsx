@@ -39,6 +39,11 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const format = (amount: number, from: Currency = 'RUB'): string => {
+    // Handle null/undefined/NaN
+    if (amount == null || isNaN(amount)) {
+      amount = 0;
+    }
+
     const converted = convert(amount, from, currency);
     const symbols: Record<Currency, string> = {
       RUB: '₽',
