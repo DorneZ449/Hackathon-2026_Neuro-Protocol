@@ -1,47 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-
-  /**
-   * Vercel Configuration
-   * --------------------
-   * Конфигурация деплоя на Vercel.
-   *
-   * @see https://vercel.com/docs/projects/project-configuration
-   */
-
-  /**
-   * Rewrites — Перенаправление URL без изменения адреса в браузере
-   * --------------------------------------------------------------
-   * Необходимо для SPA (Single Page Application) с клиентским роутингом.
-   *
-   * Проблема:
-   *   Пользователь открывает /clients/123 → сервер ищет файл /clients/123 → 404
-   *
-   * Решение:
-   *   Все запросы перенаправляются на index.html → React Router обрабатывает URL
-   */
   "rewrites": [
     {
       "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
-
-  /**
-   * Другие полезные настройки:
-   *
-   * "headers": [
-   *   {
-   *     "source": "/(.*)",
-   *     "headers": [
-   *       { "key": "X-Frame-Options", "value": "DENY" },
-   *       { "key": "X-Content-Type-Options", "value": "nosniff" }
-   *     ]
-   *   }
-   * ],
-   *
-   * "redirects": [
-   *   { "source": "/old-page", "destination": "/new-page", "permanent": true }
-   * ]
-   */
 }
