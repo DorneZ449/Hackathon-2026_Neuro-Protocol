@@ -1,7 +1,23 @@
 {
+  /**
+   * TypeScript Root Configuration — Vite + React
+   * ---------------------------------------------
+   * Корневой конфиг, который объединяет конфигурации для разных частей проекта.
+   *
+   * Используется паттерн "Project References" для:
+   * - Раздельной компиляции приложения и Node.js конфигов
+   * - Ускорения инкрементальной сборки
+   * - Изоляции типов между разными контекстами
+   *
+   * @see https://www.typescriptlang.org/docs/handbook/project-references.html
+   */
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }

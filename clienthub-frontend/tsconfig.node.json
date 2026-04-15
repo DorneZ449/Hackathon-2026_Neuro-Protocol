@@ -1,24 +1,59 @@
 {
+  /**
+   * TypeScript Configuration — Node.js (Build Tools)
+   * -------------------------------------------------
+   * Конфигурация для файлов конфигурации, работающих в Node.js:
+   * - vite.config.ts
+   * - vitest.config.ts (если добавите)
+   *
+   * Отделён от tsconfig.app.json, потому что:
+   * - Нет DOM API (это Node.js, а не браузер)
+   * - Доступны Node.js API (fs, path, process)
+   * - Другой контекст выполнения
+   */
   "compilerOptions": {
+    /* ═══════════════════════════════════════════════════════════════════════
+     * Build Info
+     * ═══════════════════════════════════════════════════════════════════════ */
+
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "target": "es2023",
+
+    /* ═══════════════════════════════════════════════════════════════════════
+     * Language & Environment
+     * ═══════════════════════════════════════════════════════════════════════ */
+
+    "target": "ES2023",
+
+    /** Только ES2023, без DOM — это Node.js окружение */
     "lib": ["ES2023"],
-    "module": "esnext",
+
+    "module": "ESNext",
+
+    /** Node.js типы (process, Buffer, fs и т.д.) */
     "types": ["node"],
+
     "skipLibCheck": true,
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
+    /* ═══════════════════════════════════════════════════════════════════════
+     * Bundler Mode
+     * ═══════════════════════════════════════════════════════════════════════ */
+
+    "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
 
-    /* Linting */
+    /* ═══════════════════════════════════════════════════════════════════════
+     * Linting
+     * ═══════════════════════════════════════════════════════════════════════ */
+
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts"]
+
+  /** Только файлы конфигурации */
+  "include": ["vite.config.ts", "vitest.config.ts"]
 }
