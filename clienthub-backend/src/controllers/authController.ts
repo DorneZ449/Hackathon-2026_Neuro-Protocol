@@ -12,6 +12,16 @@ export const register = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ error: 'Все поля обязательны' });
     }
 
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Неверный формат email' });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({ error: 'Пароль должен быть минимум 6 символов' });
+    }
+
     const existingUser = await query('SELECT * FROM users WHERE email = $1', [email]);
     if (existingUser.rows.length > 0) {
       return res.status(400).json({ error: 'Пользователь уже существует' });
@@ -24,10 +34,15 @@ export const register = async (req: AuthRequest, res: Response) => {
     );
 
     const user = result.rows[0];
+
+    if (!process.env.JWT_SECRET) {
+      throw new Error('JWT_SECRET is not configured');
+    }
+
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET || 'secret',
-      { expiresIn: '7d' }
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
     );
 
     res.status(201).json({ user, token });
@@ -57,10 +72,14 @@ export const login = async (req: AuthRequest, res: Response) => {
       return res.status(401).json({ error: 'Неверный email или пароль' });
     }
 
+    if (!process.env.JWT_SECRET) {
+      throw new Error('JWT_SECRET is not configured');
+    }
+
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET || 'secret',
-      { expiresIn: '7d' }
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
     );
 
     res.json({

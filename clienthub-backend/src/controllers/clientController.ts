@@ -58,40 +58,41 @@ export const getClients = async (req: AuthRequest, res: Response) => {
 export const getClientById = async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const clientResult = await query(
-      `SELECT c.*, u.name as creator_name 
-       FROM clients c 
-       LEFT JOIN users u ON c.created_by = u.id 
-       WHERE c.id = $1`,
-      [id]
-    );
+
+    // Parallel queries for better performance
+    const [clientResult, ordersResult, interactionsResult, commentsResult] = await Promise.all([
+      query(
+        `SELECT c.*, u.name as creator_name
+         FROM clients c
+         LEFT JOIN users u ON c.created_by = u.id
+         WHERE c.id = $1`,
+        [id]
+      ),
+      query(
+        'SELECT * FROM orders WHERE client_id = $1 ORDER BY order_date DESC',
+        [id]
+      ),
+      query(
+        `SELECT i.*, u.name as creator_name
+         FROM interactions i
+         LEFT JOIN users u ON i.created_by = u.id
+         WHERE i.client_id = $1
+         ORDER BY i.interaction_date DESC`,
+        [id]
+      ),
+      query(
+        `SELECT c.*, u.name as creator_name
+         FROM comments c
+         LEFT JOIN users u ON c.created_by = u.id
+         WHERE c.client_id = $1
+         ORDER BY c.created_at DESC`,
+        [id]
+      )
+    ]);
 
     if (clientResult.rows.length === 0) {
       return res.status(404).json({ error: 'Клиент не найден' });
     }
-
-    const ordersResult = await query(
-      'SELECT * FROM orders WHERE client_id = $1 ORDER BY order_date DESC',
-      [id]
-    );
-
-    const interactionsResult = await query(
-      `SELECT i.*, u.name as creator_name 
-       FROM interactions i 
-       LEFT JOIN users u ON i.created_by = u.id 
-       WHERE i.client_id = $1 
-       ORDER BY i.interaction_date DESC`,
-      [id]
-    );
-
-    const commentsResult = await query(
-      `SELECT c.*, u.name as creator_name 
-       FROM comments c 
-       LEFT JOIN users u ON c.created_by = u.id 
-       WHERE c.client_id = $1 
-       ORDER BY c.created_at DESC`,
-      [id]
-    );
 
     res.json({
       client: clientResult.rows[0],
@@ -132,12 +133,17 @@ export const updateClient = async (req: AuthRequest, res: Response) => {
     const { id } = req.params;
     const { name, phone, email, company, tags, notes } = req.body;
 
+    // Check if user is admin
+    const userResult = await query('SELECT role FROM users WHERE id = $1', [req.user?.id]);
+    const isAdmin = userResult.rows[0]?.role === 'admin';
+
+    // Update with ownership check (admin can update any client)
     const result = await query(
-      `UPDATE clients 
-       SET name = $1, phone = $2, email = $3, company = $4, tags = $5, notes = $6, updated_at = CURRENT_TIMESTAMP 
-       WHERE id = $7 
+      `UPDATE clients
+       SET name = $1, phone = $2, email = $3, company = $4, tags = $5, notes = $6, updated_at = CURRENT_TIMESTAMP
+       WHERE id = $7 AND (created_by = $8 OR $9 = true)
        RETURNING *`,
-      [name, phone, email, company, tags, notes, id]
+      [name, phone, email, company, tags, notes, id, req.user?.id, isAdmin]
     );
 
     if (result.rows.length === 0) {

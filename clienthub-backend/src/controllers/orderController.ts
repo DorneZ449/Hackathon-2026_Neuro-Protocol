@@ -29,12 +29,17 @@ export const updateOrder = async (req: AuthRequest, res: Response) => {
     const { id } = req.params;
     const { title, description, amount, status } = req.body;
 
+    // Check if user is admin
+    const userResult = await query('SELECT role FROM users WHERE id = $1', [req.user?.id]);
+    const isAdmin = userResult.rows[0]?.role === 'admin';
+
+    // Update with ownership check (admin can update any order)
     const result = await query(
-      `UPDATE orders 
-       SET title = $1, description = $2, amount = $3, status = $4 
-       WHERE id = $5 
+      `UPDATE orders
+       SET title = $1, description = $2, amount = $3, status = $4
+       WHERE id = $5 AND (created_by = $6 OR $7 = true)
        RETURNING *`,
-      [title, description, amount, status, id]
+      [title, description, amount, status, id, req.user?.id, isAdmin]
     );
 
     if (result.rows.length === 0) {
@@ -51,7 +56,16 @@ export const updateOrder = async (req: AuthRequest, res: Response) => {
 export const deleteOrder = async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const result = await query('DELETE FROM orders WHERE id = $1 RETURNING *', [id]);
+
+    // Check if user is admin
+    const userResult = await query('SELECT role FROM users WHERE id = $1', [req.user?.id]);
+    const isAdmin = userResult.rows[0]?.role === 'admin';
+
+    // Delete with ownership check (admin can delete any order)
+    const result = await query(
+      'DELETE FROM orders WHERE id = $1 AND (created_by = $2 OR $3 = true) RETURNING *',
+      [id, req.user?.id, isAdmin]
+    );
 
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Заказ не найден' });

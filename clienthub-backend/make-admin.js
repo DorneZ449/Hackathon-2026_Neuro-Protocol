@@ -1,8 +1,13 @@
 import pkg from 'pg';
 const { Pool } = pkg;
 
+if (!process.env.DATABASE_URL) {
+  console.error('❌ DATABASE_URL environment variable is required');
+  process.exit(1);
+}
+
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || 'postgresql://clienthub_6kyv_user:I95ej0rBcX0A3u1cEPpwj8zOXLJ3YSqn@dpg-d7ekae6rnols73ei2vr0-a.frankfurt-postgres.render.com/clienthub_6kyv',
+  connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false }
 });
 
