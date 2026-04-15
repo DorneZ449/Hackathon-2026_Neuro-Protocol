@@ -70,37 +70,56 @@ body {
 /* Cosmic Theme */
 [data-theme="cosmic"] body {
   background: linear-gradient(to bottom, #0a0a1e, #1a1a3e);
-  color: #e0e0ff;
+  color: #ffffff;
 }
 
 [data-theme="cosmic"] .bg-gray-50 {
-  background-color: rgba(26, 26, 62, 0.6) !important;
-  backdrop-filter: blur(10px);
+  background-color: rgba(20, 20, 50, 0.85) !important;
+  backdrop-filter: blur(15px);
 }
 
 [data-theme="cosmic"] .bg-white {
-  background-color: rgba(30, 30, 60, 0.8) !important;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(100, 100, 200, 0.3);
+  background-color: rgba(25, 25, 55, 0.95) !important;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(120, 120, 220, 0.4);
 }
 
 [data-theme="cosmic"] .text-gray-800,
 [data-theme="cosmic"] .text-gray-900 {
-  color: #e0e0ff !important;
+  color: #ffffff !important;
 }
 
 [data-theme="cosmic"] .text-gray-600,
 [data-theme="cosmic"] .text-gray-700 {
-  color: #b0b0d0 !important;
+  color: #d0d0e0 !important;
+}
+
+[data-theme="cosmic"] .text-gray-500 {
+  color: #b0b0c0 !important;
 }
 
 [data-theme="cosmic"] .border-gray-200,
 [data-theme="cosmic"] .border-gray-300 {
-  border-color: rgba(100, 100, 200, 0.3) !important;
+  border-color: rgba(120, 120, 220, 0.4) !important;
 }
 
 [data-theme="cosmic"] .shadow,
 [data-theme="cosmic"] .shadow-sm,
-[data-theme="cosmic"] .shadow-lg {
-  box-shadow: 0 0 20px rgba(100, 100, 255, 0.3) !important;
+[data-theme="cosmic"] .shadow-lg,
+[data-theme="cosmic"] .shadow-xl,
+[data-theme="cosmic"] .shadow-2xl {
+  box-shadow: 0 0 30px rgba(100, 100, 255, 0.4) !important;
+}
+
+[data-theme="cosmic"] input,
+[data-theme="cosmic"] textarea,
+[data-theme="cosmic"] select {
+  background-color: rgba(30, 30, 60, 0.9) !important;
+  color: #ffffff !important;
+  border-color: rgba(120, 120, 220, 0.4) !important;
+}
+
+[data-theme="cosmic"] input::placeholder,
+[data-theme="cosmic"] textarea::placeholder {
+  color: #a0a0b0 !important;
 }

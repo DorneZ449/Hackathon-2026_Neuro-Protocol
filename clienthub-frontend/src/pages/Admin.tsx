@@ -52,6 +52,7 @@ export default function Admin() {
   const [data, setData] = useState<AdminData | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'users' | 'clients' | 'orders' | 'interactions'>('users');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (user && user.role !== 'admin') {
@@ -69,6 +70,22 @@ export default function Admin() {
       setLoading(false);
     }
   };
+
+  const changeUserRole = async (userId: number, newRole: string) => {
+    try {
+      await api.put(`/admin/users/${userId}/role`, { role: newRole });
+      fetchData();
+      alert('Роль успешно изменена!');
+    } catch (error) {
+      console.error('Error changing role:', error);
+      alert('Ошибка изменения роли');
+    }
+  };
+
+  const filteredUsers = data?.users.filter(u =>
+    u.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    u.email.toLowerCase().includes(searchQuery.toLowerCase())
+  ) || [];
 
   useEffect(() => {
     fetchData();
@@ -95,6 +112,18 @@ export default function Admin() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Админ-панель</h1>
+
+      {activeTab === 'users' && (
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Поиск по имени или email..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full md:w-96 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      )}
 
       <div className="flex gap-2 mb-6">
         <button
@@ -141,17 +170,41 @@ export default function Admin() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Роль</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Создан</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Действия</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {data.users.map((u) => (
+              {filteredUsers.map((u) => (
                 <tr key={u.id}>
                   <td className="px-6 py-4 whitespace-nowrap">{u.id}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{u.name}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{u.email}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{u.role}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      u.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'
+                    }`}>
+                      {u.role}
+                    </span>
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {new Date(u.created_at).toLocaleString('ru-RU')}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {u.role === 'admin' ? (
+                      <button
+                        onClick={() => changeUserRole(u.id, 'user')}
+                        className="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 text-sm"
+                      >
+                        Снять админа
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => changeUserRole(u.id, 'admin')}
+                        className="px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 text-sm"
+                      >
+                        Сделать админом
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
