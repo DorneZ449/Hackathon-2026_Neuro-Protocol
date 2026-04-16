@@ -28,22 +28,27 @@ const app = express();
 app.use(helmet());
 
 // CORS настройка - поддержка локальной разработки и продакшена
-const allowedOrigins = (
-  process.env.ALLOWED_ORIGINS ??
-  'http://localhost:3000,http://localhost:5173'
-)
+const allowedOrigins = (process.env.ALLOWED_ORIGINS ?? '')
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean);
 
+const isAllowedOrigin = (origin?: string) => {
+  if (!origin) return true;
+  if (allowedOrigins.includes(origin)) return true;
+
+  return /^https:\/\/.*\.vercel\.app$/.test(origin);
+};
+
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        return callback(null, true);
+      if (isAllowedOrigin(origin)) {
+        callback(null, true);
+        return;
       }
 
-      return callback(new Error('Not allowed by CORS'));
+      callback(new Error('Not allowed by CORS'));
     },
     credentials: true,
   })
