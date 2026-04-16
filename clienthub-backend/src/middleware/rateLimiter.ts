@@ -8,6 +8,14 @@ export const loginLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+export const registerLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 минут
+  max: 10, // максимум 10 попыток
+  message: 'Слишком много попыток регистрации. Попробуйте через 15 минут.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 export const apiLimiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 минута
   max: 100, // максимум 100 запросов

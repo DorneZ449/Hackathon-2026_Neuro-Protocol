@@ -5,6 +5,11 @@ const seedData = async () => {
   try {
     console.log('🌱 Начинаем заполнение демо-данными...');
 
+    // Очищаем существующие демо-данные (только для dev)
+    console.log('🗑️  Очистка старых демо-данных...');
+    await pool.query('TRUNCATE comments, interactions, orders, clients RESTART IDENTITY CASCADE');
+    console.log('✅ Старые данные очищены');
+
     // Создаем тестового пользователя
     const password_hash = await bcrypt.hash('demo123', 10);
     const userResult = await pool.query(
