@@ -4,11 +4,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { clientAPI } from '../api/clients';
 import { orderAPI, interactionAPI, commentAPI } from '../api/index';
 import { useCurrency } from '../hooks/useCurrency';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 const ClientDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { format } = useCurrency();
+  const clientId = Number(id);
   const [activeTab, setActiveTab] = useState<'orders' | 'interactions' | 'comments'>('orders');
   const [showOrderModal, setShowOrderModal] = useState(false);
   const [showInteractionModal, setShowInteractionModal] = useState(false);
@@ -17,6 +19,11 @@ const ClientDetails: React.FC = () => {
   const [isCreatingInteraction, setIsCreatingInteraction] = useState(false);
   const [isCreatingComment, setIsCreatingComment] = useState(false);
   const [isDeletingClient, setIsDeletingClient] = useState(false);
+  const [actionError, setActionError] = useState('');
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+
+  const getErrorMessage = (error: unknown, fallback: string) =>
+    error instanceof Error ? error.message : fallback;
 
   const [orderForm, setOrderForm] = useState({
     title: '',
@@ -30,17 +37,26 @@ const ClientDetails: React.FC = () => {
     description: '',
   });
 
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ['client', id],
-    queryFn: () => clientAPI.getById(Number(id)),
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ['client', clientId],
+    queryFn: () => clientAPI.getById(clientId),
+    enabled: Number.isFinite(clientId) && clientId > 0,
   });
+
+  if (!Number.isFinite(clientId) || clientId <= 0) {
+    return <div className="card p-6">Некорректный ID клиента</div>;
+  }
+
+  if (isError) {
+    return <div className="card p-6">Не удалось загрузить данные клиента</div>;
+  }
 
   const handleCreateOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsCreatingOrder(true);
     try {
       await orderAPI.create({
-        client_id: Number(id),
+        client_id: clientId,
         ...orderForm,
         amount: orderForm.amount ? Number(orderForm.amount) : undefined,
       });
@@ -49,7 +65,7 @@ const ClientDetails: React.FC = () => {
       refetch();
     } catch (error) {
       console.error('Ошибка создания заказа:', error);
-      alert('Ошибка при создании заказа');
+      setActionError(getErrorMessage(error, 'Ошибка при создании заказа'));
     } finally {
       setIsCreatingOrder(false);
     }
@@ -60,7 +76,7 @@ const ClientDetails: React.FC = () => {
     setIsCreatingInteraction(true);
     try {
       await interactionAPI.create({
-        client_id: Number(id),
+        client_id: clientId,
         ...interactionForm,
       });
       setShowInteractionModal(false);
@@ -68,7 +84,7 @@ const ClientDetails: React.FC = () => {
       refetch();
     } catch (error) {
       console.error('Ошибка создания взаимодействия:', error);
-      alert('Ошибка при создании взаимодействия');
+      setActionError(getErrorMessage(error, 'Ошибка при создании взаимодействия'));
     } finally {
       setIsCreatingInteraction(false);
     }
@@ -80,31 +96,31 @@ const ClientDetails: React.FC = () => {
     setIsCreatingComment(true);
     try {
       await commentAPI.create({
-        client_id: Number(id),
+        client_id: clientId,
         text: commentText,
       });
       setCommentText('');
       refetch();
     } catch (error) {
       console.error('Ошибка создания комментария:', error);
-      alert('Ошибка при создании комментария');
+      setActionError(getErrorMessage(error, 'Ошибка при создании комментария'));
     } finally {
       setIsCreatingComment(false);
     }
   };
 
   const handleDeleteClient = async () => {
-    if (window.confirm('Вы уверены, что хотите удалить этого клиента? Все связанные данные будут удалены.')) {
-      setIsDeletingClient(true);
-      try {
-        await clientAPI.delete(Number(id));
-        navigate('/clients');
-      } catch (error) {
-        console.error('Ошибка удаления клиента:', error);
-        alert('Ошибка при удалении клиента');
-      } finally {
-        setIsDeletingClient(false);
-      }
+    setIsDeletingClient(true);
+
+    try {
+      await clientAPI.delete(clientId);
+      navigate('/clients');
+    } catch (error) {
+      console.error('Ошибка удаления клиента:', error);
+      setActionError(getErrorMessage(error, 'Ошибка при удалении клиента'));
+    } finally {
+      setIsDeletingClient(false);
+      setConfirmDeleteOpen(false);
     }
   };
 
@@ -188,6 +204,12 @@ const ClientDetails: React.FC = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
+      {actionError && (
+        <div className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-700">
+          {actionError}
+        </div>
+      )}
+
       <button
         onClick={() => navigate('/clients')}
         className="mb-6 flex items-center gap-2 py-2 px-3 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors min-h-[44px]"
@@ -264,7 +286,7 @@ const ClientDetails: React.FC = () => {
               </p>
             </div>
             <button
-              onClick={handleDeleteClient}
+              onClick={() => setConfirmDeleteOpen(true)}
               disabled={isDeletingClient}
               className="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -609,6 +631,16 @@ const ClientDetails: React.FC = () => {
           </div>
         </div>
       )}
+
+      <ConfirmDialog
+        open={confirmDeleteOpen}
+        title="Удалить клиента?"
+        description="Клиент и связанные данные будут удалены без возможности восстановления."
+        confirmLabel="Удалить"
+        busy={isDeletingClient}
+        onClose={() => setConfirmDeleteOpen(false)}
+        onConfirm={handleDeleteClient}
+      />
     </div>
   );
 };

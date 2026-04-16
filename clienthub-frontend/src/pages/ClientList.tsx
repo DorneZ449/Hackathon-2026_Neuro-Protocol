@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { clientAPI } from '../api/clients';
 import { useNavigate } from 'react-router-dom';
 import type { Client } from '../types';
+import { useDebouncedValue } from '../hooks/useDebouncedValue';
 
 const ClientList: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -22,21 +28,27 @@ const ClientList: React.FC = () => {
   const [isCreating, setIsCreating] = useState(false);
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ['clients', searchTerm, tagFilter, companyFilter, currentPage],
+  const debouncedSearchTerm = useDebouncedValue(searchTerm, 350);
+  const debouncedTagFilter = useDebouncedValue(tagFilter, 200);
+  const debouncedCompanyFilter = useDebouncedValue(companyFilter, 200);
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['clients', debouncedSearchTerm, debouncedTagFilter, debouncedCompanyFilter, currentPage],
     queryFn: () => clientAPI.getAll({
-      search: searchTerm || undefined,
-      tag: tagFilter || undefined,
-      company: companyFilter || undefined,
+      search: debouncedSearchTerm || undefined,
+      tag: debouncedTagFilter || undefined,
+      company: debouncedCompanyFilter || undefined,
       page: currentPage,
       limit: 12,
     }),
+    placeholderData: keepPreviousData,
   });
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchTerm, tagFilter, companyFilter]);
+  }, [debouncedSearchTerm, debouncedTagFilter, debouncedCompanyFilter]);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -57,6 +69,22 @@ const ClientList: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const createClientMutation = useMutation({
+    mutationFn: (payload: typeof formData) => clientAPI.create(payload),
+    onSuccess: async () => {
+      setShowModal(false);
+      setFormData({ name: '', phone: '', email: '', company: '', tags: '', notes: '' });
+      setErrors({});
+      await queryClient.invalidateQueries({ queryKey: ['clients'] });
+    },
+    onError: (mutationError) => {
+      setErrors({
+        submit:
+          mutationError instanceof Error ? mutationError.message : 'Ошибка при создании клиента',
+      });
+    },
+  });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -64,19 +92,7 @@ const ClientList: React.FC = () => {
       return;
     }
 
-    setIsCreating(true);
-    try {
-      await clientAPI.create(formData);
-      setShowModal(false);
-      setFormData({ name: '', phone: '', email: '', company: '', tags: '', notes: '' });
-      setErrors({});
-      refetch();
-    } catch (error) {
-      console.error('Ошибка создания клиента:', error);
-      setErrors({ submit: 'Ошибка при создании клиента' });
-    } finally {
-      setIsCreating(false);
-    }
+    createClientMutation.mutate(formData);
   };
 
   const handleClearFilters = () => {
@@ -85,6 +101,17 @@ const ClientList: React.FC = () => {
     setCompanyFilter('');
     setCurrentPage(1);
   };
+
+  if (isError) {
+    return (
+      <div className="card p-6">
+        <h2 className="mb-2 text-lg font-semibold">Не удалось загрузить клиентов</h2>
+        <p className="text-sm text-muted">
+          {error instanceof Error ? error.message : 'Повторите попытку позже'}
+        </p>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -435,10 +462,10 @@ const ClientList: React.FC = () => {
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"
-                  disabled={isCreating}
+                  disabled={createClientMutation.isPending}
                   className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isCreating ? 'Создание...' : 'Создать'}
+                  {createClientMutation.isPending ? 'Создание...' : 'Создать'}
                 </button>
                 <button
                   type="button"
@@ -446,7 +473,7 @@ const ClientList: React.FC = () => {
                     setShowModal(false);
                     setErrors({});
                   }}
-                  disabled={isCreating}
+                  disabled={createClientMutation.isPending}
                   className="flex-1 bg-gray-100 text-gray-700 py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
                 >
                   Отмена
