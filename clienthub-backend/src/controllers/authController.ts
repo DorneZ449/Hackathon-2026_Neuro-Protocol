@@ -12,9 +12,13 @@ export const register = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ error: 'Все поля обязательны' });
     }
 
+    // Normalize email and name
+    const normalizedEmail = String(email).trim().toLowerCase();
+    const normalizedName = String(name).trim();
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(normalizedEmail)) {
       return res.status(400).json({ error: 'Неверный формат email' });
     }
 
@@ -22,7 +26,7 @@ export const register = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ error: 'Пароль должен быть минимум 6 символов' });
     }
 
-    const existingUser = await query('SELECT * FROM users WHERE email = $1', [email]);
+    const existingUser = await query('SELECT * FROM users WHERE LOWER(email) = LOWER($1)', [normalizedEmail]);
     if (existingUser.rows.length > 0) {
       return res.status(400).json({ error: 'Пользователь уже существует' });
     }
@@ -30,7 +34,7 @@ export const register = async (req: AuthRequest, res: Response) => {
     const password_hash = await bcrypt.hash(password, 10);
     const result = await query(
       'INSERT INTO users (email, password_hash, name) VALUES ($1, $2, $3) RETURNING id, email, name, role, avatar_url',
-      [email, password_hash, name]
+      [normalizedEmail, password_hash, normalizedName]
     );
 
     const user = result.rows[0];
@@ -60,7 +64,10 @@ export const login = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ error: 'Email и пароль обязательны' });
     }
 
-    const result = await query('SELECT * FROM users WHERE email = $1', [email]);
+    // Normalize email
+    const normalizedEmail = String(email).trim().toLowerCase();
+
+    const result = await query('SELECT * FROM users WHERE LOWER(email) = LOWER($1)', [normalizedEmail]);
     if (result.rows.length === 0) {
       return res.status(401).json({ error: 'Неверный email или пароль' });
     }

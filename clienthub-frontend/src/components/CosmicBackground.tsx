@@ -38,6 +38,8 @@ export default function CosmicBackground() {
       });
     }
 
+    let animationId = 0;
+
     function animate() {
       if (!ctx || !canvas) return;
 
@@ -79,10 +81,10 @@ export default function CosmicBackground() {
         }
       });
 
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
     }
 
-    animate();
+    animationId = requestAnimationFrame(animate);
 
     const handleResize = () => {
       canvas.width = window.innerWidth;
@@ -90,7 +92,11 @@ export default function CosmicBackground() {
     };
 
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (

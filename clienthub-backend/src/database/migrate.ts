@@ -66,6 +66,79 @@ const createTables = async () => {
     `);
 
     console.log('✅ Таблицы успешно созданы');
+
+    // Add constraints and indexes
+    console.log('📊 Добавление constraints и индексов...');
+
+    // Unique index on lowercase email
+    await pool.query(`
+      CREATE UNIQUE INDEX IF NOT EXISTS users_email_lower_unique
+      ON users (LOWER(email));
+    `);
+
+    // Indexes for foreign keys
+    await pool.query(`
+      CREATE INDEX IF NOT EXISTS idx_clients_created_by
+      ON clients (created_by);
+    `);
+
+    await pool.query(`
+      CREATE INDEX IF NOT EXISTS idx_orders_client_id
+      ON orders (client_id);
+    `);
+
+    await pool.query(`
+      CREATE INDEX IF NOT EXISTS idx_interactions_client_id
+      ON interactions (client_id);
+    `);
+
+    await pool.query(`
+      CREATE INDEX IF NOT EXISTS idx_comments_client_id
+      ON comments (client_id);
+    `);
+
+    // Check constraints
+    await pool.query(`
+      DO $$ BEGIN
+        ALTER TABLE users
+          ADD CONSTRAINT users_role_check
+          CHECK (role IN ('user', 'admin'));
+      EXCEPTION
+        WHEN duplicate_object THEN NULL;
+      END $$;
+    `);
+
+    await pool.query(`
+      DO $$ BEGIN
+        ALTER TABLE orders
+          ADD CONSTRAINT orders_status_check
+          CHECK (status IN ('pending', 'in_progress', 'completed', 'cancelled'));
+      EXCEPTION
+        WHEN duplicate_object THEN NULL;
+      END $$;
+    `);
+
+    await pool.query(`
+      DO $$ BEGIN
+        ALTER TABLE orders
+          ADD CONSTRAINT orders_amount_non_negative
+          CHECK (amount IS NULL OR amount >= 0);
+      EXCEPTION
+        WHEN duplicate_object THEN NULL;
+      END $$;
+    `);
+
+    await pool.query(`
+      DO $$ BEGIN
+        ALTER TABLE interactions
+          ADD CONSTRAINT interactions_type_check
+          CHECK (type IN ('call', 'email', 'meeting', 'message', 'note', 'other'));
+      EXCEPTION
+        WHEN duplicate_object THEN NULL;
+      END $$;
+    `);
+
+    console.log('✅ Constraints и индексы успешно добавлены');
   } catch (error) {
     console.error('❌ Ошибка создания таблиц:', error);
     throw error;
