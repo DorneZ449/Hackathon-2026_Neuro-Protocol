@@ -20,17 +20,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const syncAuth = () => {
+      const nextToken = localStorage.getItem('token');
+      setToken(nextToken);
+
+      if (!nextToken) {
+        setUser(null);
+      }
+    };
+
+    window.addEventListener('storage', syncAuth);
+    window.addEventListener('auth:logout', syncAuth);
+
+    return () => {
+      window.removeEventListener('storage', syncAuth);
+      window.removeEventListener('auth:logout', syncAuth);
+    };
+  }, []);
+
+  useEffect(() => {
     const loadUser = async () => {
       if (token) {
         try {
           const userData = await authAPI.getMe();
           setUser(userData);
         } catch (error) {
+          console.error('Ошибка загрузки пользователя:', error);
           localStorage.removeItem('token');
           setToken(null);
+          setUser(null);
+        } finally {
+          setIsLoading(false);
         }
+      } else {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
 
     loadUser();
@@ -54,6 +78,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('token');
     setToken(null);
     setUser(null);
+    window.dispatchEvent(new Event('auth:logout'));
   };
 
   const refreshUser = async () => {
