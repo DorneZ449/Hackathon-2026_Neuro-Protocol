@@ -48,7 +48,7 @@ export default function Profile() {
           <div>
             <h2 className="text-2xl font-bold text-app">{name}</h2>
             <p className="text-muted">{user.email}</p>
-            <span className="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
+            <span className="inline-block mt-2 px-3 py-1 bg-[var(--primary-bg)] text-[var(--info-text)] text-xs font-medium rounded-full">
               {user.role === 'admin' ? 'Администратор' : 'Пользователь'}
             </span>
           </div>
@@ -56,7 +56,7 @@ export default function Profile() {
 
         {message && (
           <div className={`mb-4 p-3 rounded-lg ${
-            message.includes('успешно') ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+            message.includes('успешно') ? 'bg-[var(--success-bg)] text-[var(--success-text)]' : 'bg-[var(--danger-bg)] text-[var(--danger-text)]'
           }`}>
             {message}
           </div>

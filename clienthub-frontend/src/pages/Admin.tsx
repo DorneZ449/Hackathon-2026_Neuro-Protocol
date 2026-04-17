@@ -161,7 +161,7 @@ export default function Admin() {
       <div className="surface rounded-lg shadow overflow-x-auto">
         {activeTab === 'users' && (
           <table className="min-w-[800px]">
-            <thead className="bg-gray-50">
+            <thead className="bg-[var(--surface-hover)]">
               <tr>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">ID</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Имя</th>
@@ -178,7 +178,7 @@ export default function Admin() {
                   <td className="px-4 py-4 whitespace-nowrap">{u.email}</td>
                   <td className="px-4 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 rounded text-xs ${
-                      u.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-app'
+                      u.role === 'admin' ? 'bg-[var(--info-bg)] text-[var(--info-text)]' : 'bg-gray-100 text-app'
                     }`}>
                       {u.role === 'admin' ? 'Администратор' : 'Пользователь'}
                     </span>
@@ -194,7 +194,7 @@ export default function Admin() {
 
         {activeTab === 'clients' && (
           <table className="min-w-[900px]">
-            <thead className="bg-gray-50">
+            <thead className="bg-[var(--surface-hover)]">
               <tr>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">ID</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Имя</th>
@@ -227,7 +227,7 @@ export default function Admin() {
 
         {activeTab === 'orders' && (
           <table className="min-w-[700px]">
-            <thead className="bg-gray-50">
+            <thead className="bg-[var(--surface-hover)]">
               <tr>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">ID</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Client ID</th>
@@ -244,9 +244,9 @@ export default function Admin() {
                   <td className="px-4 py-4 whitespace-nowrap">{format(order.amount)}</td>
                   <td className="px-4 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 rounded text-xs ${
-                      order.status === 'completed' ? 'bg-green-100 text-green-800' :
-                      order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-red-100 text-red-800'
+                      order.status === 'completed' ? 'bg-[var(--success-bg)] text-[var(--success-text)]' :
+                      order.status === 'pending' ? 'bg-[var(--warning-bg)] text-[var(--warning-text)]' :
+                      'bg-[var(--danger-bg)] text-[var(--danger-text)]'
                     }`}>
                       {order.status}
                     </span>
@@ -262,7 +262,7 @@ export default function Admin() {
 
         {activeTab === 'interactions' && (
           <table className="min-w-[800px]">
-            <thead className="bg-gray-50">
+            <thead className="bg-[var(--surface-hover)]">
               <tr>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">ID</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Client ID</th>

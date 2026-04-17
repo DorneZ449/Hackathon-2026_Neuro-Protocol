@@ -228,7 +228,7 @@ const ClientDetails: React.FC = () => {
           <p className="text-muted mb-4">Возможно, клиент был удалён</p>
           <button
             onClick={() => navigate('/clients')}
-            className="text-blue-600 hover:text-blue-700 font-medium"
+            className="text-blue-600 hover:text-[var(--info-text)] font-medium"
           >
             Вернуться к списку клиентов
           </button>
@@ -242,13 +242,13 @@ const ClientDetails: React.FC = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'bg-green-100 text-green-700';
+        return 'bg-[var(--success-bg)] text-[var(--success-text)]';
       case 'in_progress':
-        return 'bg-blue-100 text-blue-700';
+        return 'bg-[var(--primary-bg)] text-[var(--info-text)]';
       case 'pending':
-        return 'bg-yellow-100 text-yellow-700';
+        return 'bg-[var(--warning-bg)] text-[var(--warning-text)]';
       case 'cancelled':
-        return 'bg-red-100 text-red-700';
+        return 'bg-[var(--danger-bg)] text-[var(--danger-text)]';
       default:
         return 'surface border border-app text-app';
     }
@@ -296,7 +296,7 @@ const ClientDetails: React.FC = () => {
   return (
     <div className="p-3 sm:p-6 max-w-7xl mx-auto">
       {actionError && (
-        <div className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-700">
+        <div className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-[var(--danger-text)]">
           {actionError}
         </div>
       )}
@@ -316,7 +316,7 @@ const ClientDetails: React.FC = () => {
         <div className="flex justify-end mb-4">
           <button
             onClick={() => handleEditClient(client)}
-            className="flex items-center gap-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-blue-600 hover:bg-[var(--primary-bg)] rounded-lg transition-colors"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -327,7 +327,7 @@ const ClientDetails: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between gap-6">
           <div className="flex-1">
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-16 h-16 bg-[var(--primary-bg)] rounded-full flex items-center justify-center flex-shrink-0">
                 <span className="text-blue-600 font-bold text-2xl">
                   {client.name.charAt(0).toUpperCase()}
                 </span>
@@ -347,7 +347,7 @@ const ClientDetails: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               {client.phone && (
-                <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg min-w-0">
+                <div className="flex items-center gap-3 p-3 bg-[var(--surface-hover)] rounded-lg min-w-0">
                   <svg className="w-5 h-5 text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
@@ -355,7 +355,7 @@ const ClientDetails: React.FC = () => {
                 </div>
               )}
               {client.email && (
-                <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg min-w-0">
+                <div className="flex items-center gap-3 p-3 bg-[var(--surface-hover)] rounded-lg min-w-0">
                   <svg className="w-5 h-5 text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
@@ -366,14 +366,14 @@ const ClientDetails: React.FC = () => {
 
             {client.tags && (
               <div className="mb-4">
-                <span className="inline-block bg-blue-50 text-blue-700 text-xs sm:text-sm px-3 sm:px-4 py-2 rounded-full font-medium break-words max-w-full">
+                <span className="inline-block bg-[var(--primary-bg)] text-[var(--info-text)] text-xs sm:text-sm px-3 sm:px-4 py-2 rounded-full font-medium break-words max-w-full">
                   {client.tags}
                 </span>
               </div>
             )}
 
             {client.notes && (
-              <div className="p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="p-3 sm:p-4 bg-[var(--surface-hover)] rounded-lg border border-gray-200">
                 <p className="text-xs sm:text-sm font-medium text-app mb-1">Заметки:</p>
                 <p className="text-muted text-sm break-words">{client.notes}</p>
               </div>
@@ -381,7 +381,7 @@ const ClientDetails: React.FC = () => {
           </div>
 
           <div className="flex flex-col gap-3 w-full md:w-auto">
-            <div className="bg-blue-50 rounded-lg p-3 sm:p-4 text-center">
+            <div className="bg-[var(--primary-bg)] rounded-lg p-3 sm:p-4 text-center">
               <p className="text-xs sm:text-sm text-muted mb-1">Сумма заказов</p>
               <p className="text-lg sm:text-xl md:text-2xl font-bold text-blue-600 break-words">
                 {format(totalOrdersAmount)}
@@ -390,7 +390,7 @@ const ClientDetails: React.FC = () => {
             <button
               onClick={() => setConfirmDeleteOpen(true)}
               disabled={isDeletingClient}
-              className="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-[var(--danger-bg)] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isDeletingClient ? 'Удаление...' : 'Удалить клиента'}
             </button>
@@ -406,8 +406,8 @@ const ClientDetails: React.FC = () => {
               onClick={() => setActiveTab('orders')}
               className={`flex-1 min-w-[120px] px-4 sm:px-6 py-4 font-medium text-sm sm:text-base transition-colors ${
                 activeTab === 'orders'
-                  ? 'border-b-2 border-blue-600 text-blue-600 bg-blue-50'
-                  : 'text-muted hover:text-app hover:bg-gray-50'
+                  ? 'border-b-2 border-blue-600 text-blue-600 bg-[var(--primary-bg)]'
+                  : 'text-muted hover:text-app hover:bg-[var(--surface-hover)]'
               }`}
             >
               Заказы ({orders.length})
@@ -416,8 +416,8 @@ const ClientDetails: React.FC = () => {
               onClick={() => setActiveTab('interactions')}
               className={`flex-1 min-w-[120px] px-4 sm:px-6 py-4 font-medium text-sm sm:text-base transition-colors ${
                 activeTab === 'interactions'
-                  ? 'border-b-2 border-blue-600 text-blue-600 bg-blue-50'
-                  : 'text-muted hover:text-app hover:bg-gray-50'
+                  ? 'border-b-2 border-blue-600 text-blue-600 bg-[var(--primary-bg)]'
+                  : 'text-muted hover:text-app hover:bg-[var(--surface-hover)]'
               }`}
             >
               Взаимодействия ({interactions.length})
@@ -426,8 +426,8 @@ const ClientDetails: React.FC = () => {
               onClick={() => setActiveTab('comments')}
               className={`flex-1 min-w-[120px] px-4 sm:px-6 py-4 font-medium text-sm sm:text-base transition-colors ${
                 activeTab === 'comments'
-                  ? 'border-b-2 border-blue-600 text-blue-600 bg-blue-50'
-                  : 'text-muted hover:text-app hover:bg-gray-50'
+                  ? 'border-b-2 border-blue-600 text-blue-600 bg-[var(--primary-bg)]'
+                  : 'text-muted hover:text-app hover:bg-[var(--surface-hover)]'
               }`}
             >
               Комментарии ({comments.length})
@@ -482,7 +482,7 @@ const ClientDetails: React.FC = () => {
                           </span>
                           <button
                             onClick={() => handleEditOrder(order)}
-                            className="mt-0 sm:mt-2 flex items-center gap-1 text-blue-600 hover:text-blue-700 text-xs sm:text-sm whitespace-nowrap"
+                            className="mt-0 sm:mt-2 flex items-center gap-1 text-blue-600 hover:text-[var(--info-text)] text-xs sm:text-sm whitespace-nowrap"
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -521,14 +521,14 @@ const ClientDetails: React.FC = () => {
                   interactions.map((interaction) => (
                     <div key={interaction.id} className="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow">
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <div className="w-10 h-10 bg-[var(--info-bg)] rounded-full flex items-center justify-center flex-shrink-0">
                           <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                           </svg>
                         </div>
                         <div className="flex-1">
                           <div className="flex justify-between items-start mb-2">
-                            <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
+                            <span className="px-3 py-1 bg-[var(--info-bg)] text-[var(--info-text)] rounded-full text-sm font-medium">
                               {getInteractionTypeText(interaction.type)}
                             </span>
                             <div className="flex items-center gap-2">
@@ -537,7 +537,7 @@ const ClientDetails: React.FC = () => {
                               </p>
                               <button
                                 onClick={() => handleEditInteraction(interaction)}
-                                className="text-blue-600 hover:text-blue-700"
+                                className="text-blue-600 hover:text-[var(--info-text)]"
                               >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -588,7 +588,7 @@ const ClientDetails: React.FC = () => {
                         setEditingComment(null);
                         setCommentText('');
                       }}
-                      className="px-6 py-2.5 rounded-lg border border-app hover:bg-gray-50 transition-colors"
+                      className="px-6 py-2.5 rounded-lg border border-app hover:bg-[var(--surface-hover)] transition-colors"
                     >
                       Отмена
                     </button>
@@ -615,7 +615,7 @@ const ClientDetails: React.FC = () => {
                           </span>
                           <button
                             onClick={() => handleEditComment(comment)}
-                            className="text-blue-600 hover:text-blue-700"
+                            className="text-blue-600 hover:text-[var(--info-text)]"
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />

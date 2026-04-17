@@ -34,7 +34,7 @@ const Dashboard: React.FC = () => {
               <p className="text-sm text-muted mb-1">Клиенты</p>
               <p className="text-3xl font-bold text-app">{stats.clientsCount}</p>
             </div>
-            <div className="bg-blue-100 p-3 rounded-lg">
+            <div className="bg-[var(--primary-bg)] p-3 rounded-lg">
               <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
@@ -48,8 +48,8 @@ const Dashboard: React.FC = () => {
               <p className="text-sm text-muted mb-1">Заказы</p>
               <p className="text-3xl font-bold text-app">{stats.ordersCount}</p>
             </div>
-            <div className="bg-green-100 p-3 rounded-lg">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-[var(--success-bg)] p-3 rounded-lg">
+              <svg className="w-8 h-8 text-[var(--success-text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
             </div>
@@ -62,8 +62,8 @@ const Dashboard: React.FC = () => {
               <p className="text-sm text-muted mb-1">Взаимодействия</p>
               <p className="text-3xl font-bold text-app">{stats.interactionsCount}</p>
             </div>
-            <div className="bg-purple-100 p-3 rounded-lg">
-              <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-[var(--info-bg)] p-3 rounded-lg">
+              <svg className="w-8 h-8 text-[var(--info-text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
@@ -76,8 +76,8 @@ const Dashboard: React.FC = () => {
               <p className="text-sm text-muted mb-1">Сумма заказов</p>
               <p className="text-3xl font-bold text-app whitespace-nowrap">{format(stats.ordersTotal)}</p>
             </div>
-            <div className="bg-yellow-100 p-3 rounded-lg flex-shrink-0">
-              <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-[var(--warning-bg)] p-3 rounded-lg flex-shrink-0">
+              <svg className="w-8 h-8 text-[var(--warning-text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
@@ -98,7 +98,7 @@ const Dashboard: React.FC = () => {
                   <div
                     key={client.id}
                     onClick={() => navigate(`/clients/${client.id}`)}
-                    className="flex items-center justify-between p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors border border-app"
+                    className="flex items-center justify-between p-4 rounded-lg hover:bg-[var(--surface-hover)] cursor-pointer transition-colors border border-app"
                   >
                     <div className="flex-1">
                       <p className="font-semibold text-app">{client.name}</p>
@@ -135,11 +135,11 @@ const Dashboard: React.FC = () => {
                   <button
                     key={interaction.id}
                     onClick={() => navigate(`/clients/${interaction.client_id}`)}
-                    className="w-full p-4 rounded-lg border border-app hover:bg-gray-50 transition-colors text-left"
+                    className="w-full p-4 rounded-lg border border-app hover:bg-[var(--surface-hover)] transition-colors text-left"
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-700">
+                        <span className="px-2 py-1 text-xs font-medium rounded-full bg-[var(--primary-bg)] text-[var(--info-text)]">
                           {interaction.type}
                         </span>
                         <p className="font-medium text-app">{interaction.client_name}</p>
@@ -186,7 +186,7 @@ const Dashboard: React.FC = () => {
                       <tr
                         key={client.id}
                         onClick={() => navigate(`/clients/${client.id}`)}
-                        className="border-b border-app hover:bg-gray-50 cursor-pointer transition-colors"
+                        className="border-b border-app hover:bg-[var(--surface-hover)] cursor-pointer transition-colors"
                       >
                         <td className="py-3 px-4 text-sm text-app">{client.name}</td>
                         <td className="py-3 px-4 text-sm text-muted">{client.company || '-'}</td>

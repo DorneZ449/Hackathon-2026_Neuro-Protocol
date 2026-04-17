@@ -197,17 +197,17 @@ const ClientList: React.FC = () => {
           <div className="mt-4 flex items-center gap-2">
             <span className="text-sm text-muted">Активные фильтры:</span>
             {searchTerm && (
-              <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+              <span className="px-3 py-1 bg-[var(--primary-bg)] text-[var(--info-text)] rounded-full text-sm">
                 Поиск: {searchTerm}
               </span>
             )}
             {tagFilter && (
-              <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
+              <span className="px-3 py-1 bg-[var(--info-bg)] text-[var(--info-text)] rounded-full text-sm">
                 Тег: {tagFilter}
               </span>
             )}
             {companyFilter && (
-              <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">
+              <span className="px-3 py-1 bg-[var(--success-bg)] text-[var(--success-text)] rounded-full text-sm">
                 Компания: {companyFilter}
               </span>
             )}
@@ -233,7 +233,7 @@ const ClientList: React.FC = () => {
               >
                 <div className="flex items-start justify-between mb-3">
                   <h3 className="text-xl font-semibold text-app">{client.name}</h3>
-                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                  <div className="w-10 h-10 bg-[var(--primary-bg)] rounded-full flex items-center justify-center">
                     <span className="text-blue-600 font-semibold text-lg">
                       {client.name.charAt(0).toUpperCase()}
                     </span>
@@ -269,7 +269,7 @@ const ClientList: React.FC = () => {
 
                 {client.tags && (
                   <div className="mt-3 pt-3 border-t border-app">
-                    <span className="inline-block bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full font-medium">
+                    <span className="inline-block bg-[var(--primary-bg)] text-[var(--info-text)] text-xs px-3 py-1 rounded-full font-medium">
                       {client.tags}
                     </span>
                   </div>
@@ -290,7 +290,7 @@ const ClientList: React.FC = () => {
               <button
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="px-4 py-2 border border-app rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-4 py-2 border border-app rounded-lg hover:bg-[var(--surface-hover)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Назад
               </button>
@@ -303,7 +303,7 @@ const ClientList: React.FC = () => {
                     className={`px-4 py-2 rounded-lg transition-colors ${
                       currentPage === page
                         ? 'bg-blue-600 text-[var(--primary-contrast)]'
-                        : 'border border-app hover:bg-gray-50'
+                        : 'border border-app hover:bg-[var(--surface-hover)]'
                     }`}
                   >
                     {page}
@@ -314,7 +314,7 @@ const ClientList: React.FC = () => {
               <button
                 onClick={() => setCurrentPage(p => Math.min(pagination.totalPages, p + 1))}
                 disabled={currentPage === pagination.totalPages}
-                className="px-4 py-2 border border-app rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-4 py-2 border border-app rounded-lg hover:bg-[var(--surface-hover)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Вперёд
               </button>
@@ -351,7 +351,7 @@ const ClientList: React.FC = () => {
           {(searchTerm || tagFilter || companyFilter) && (
             <button
               onClick={handleClearFilters}
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className="text-blue-600 hover:text-[var(--info-text)] font-medium"
             >
               Очистить фильтры
             </button>
@@ -369,7 +369,7 @@ const ClientList: React.FC = () => {
 
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               {errors.submit && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                <div className="bg-[var(--danger-bg)] border border-red-200 text-[var(--danger-text)] px-4 py-3 rounded-lg text-sm">
                   {errors.submit}
                 </div>
               )}

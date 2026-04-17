@@ -13,7 +13,7 @@ export default function CurrencySelector() {
   return (
     <div className="flex items-center gap-2">
       <span className="hidden md:inline text-sm text-muted">Валюта:</span>
-      <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
+      <div className="flex gap-1 bg-[var(--surface-hover)] rounded-lg p-1">
         {currencies.map((curr) => (
           <button
             key={curr.code}
