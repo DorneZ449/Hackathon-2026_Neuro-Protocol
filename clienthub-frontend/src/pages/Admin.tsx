@@ -158,7 +158,7 @@ export default function Admin() {
         </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow overflow-x-auto">
+      <div className="surface rounded-lg shadow overflow-x-auto">
         {activeTab === 'users' && (
           <table className="min-w-[800px]">
             <thead className="bg-gray-50">
@@ -178,7 +178,7 @@ export default function Admin() {
                   <td className="px-4 py-4 whitespace-nowrap">{u.email}</td>
                   <td className="px-4 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 rounded text-xs ${
-                      u.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'
+                      u.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-app'
                     }`}>
                       {u.role === 'admin' ? 'Администратор' : 'Пользователь'}
                     </span>

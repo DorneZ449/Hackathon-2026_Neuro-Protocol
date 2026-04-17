@@ -24,15 +24,15 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">Дашборд</h1>
+      <h1 className="text-3xl font-bold text-app mb-8">Дашборд</h1>
 
       {/* Статистика */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+        <div className="surface rounded-xl shadow-sm p-6 border border-app hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 mb-1">Клиенты</p>
-              <p className="text-3xl font-bold text-gray-800">{stats.clientsCount}</p>
+              <p className="text-sm text-muted mb-1">Клиенты</p>
+              <p className="text-3xl font-bold text-app">{stats.clientsCount}</p>
             </div>
             <div className="bg-blue-100 p-3 rounded-lg">
               <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,11 +42,11 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+        <div className="surface rounded-xl shadow-sm p-6 border border-app hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 mb-1">Заказы</p>
-              <p className="text-3xl font-bold text-gray-800">{stats.ordersCount}</p>
+              <p className="text-sm text-muted mb-1">Заказы</p>
+              <p className="text-3xl font-bold text-app">{stats.ordersCount}</p>
             </div>
             <div className="bg-green-100 p-3 rounded-lg">
               <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,11 +56,11 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+        <div className="surface rounded-xl shadow-sm p-6 border border-app hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 mb-1">Взаимодействия</p>
-              <p className="text-3xl font-bold text-gray-800">{stats.interactionsCount}</p>
+              <p className="text-sm text-muted mb-1">Взаимодействия</p>
+              <p className="text-3xl font-bold text-app">{stats.interactionsCount}</p>
             </div>
             <div className="bg-purple-100 p-3 rounded-lg">
               <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,11 +70,11 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+        <div className="surface rounded-xl shadow-sm p-6 border border-app hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-gray-600 mb-1">Сумма заказов</p>
-              <p className="text-3xl font-bold text-gray-800 whitespace-nowrap">{format(stats.ordersTotal)}</p>
+              <p className="text-sm text-muted mb-1">Сумма заказов</p>
+              <p className="text-3xl font-bold text-app whitespace-nowrap">{format(stats.ordersTotal)}</p>
             </div>
             <div className="bg-yellow-100 p-3 rounded-lg flex-shrink-0">
               <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -87,9 +87,9 @@ const Dashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Последние клиенты */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-          <div className="p-6 border-b border-gray-100">
-            <h2 className="text-xl font-semibold text-gray-800">Последние клиенты</h2>
+        <div className="surface rounded-xl shadow-sm border border-app">
+          <div className="p-6 border-b border-app">
+            <h2 className="text-xl font-semibold text-app">Последние клиенты</h2>
           </div>
           <div className="p-6">
             {data?.recentClients && data.recentClients.length > 0 ? (
@@ -98,12 +98,12 @@ const Dashboard: React.FC = () => {
                   <div
                     key={client.id}
                     onClick={() => navigate(`/clients/${client.id}`)}
-                    className="flex items-center justify-between p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors border border-gray-100"
+                    className="flex items-center justify-between p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors border border-app"
                   >
                     <div className="flex-1">
-                      <p className="font-semibold text-gray-800">{client.name}</p>
+                      <p className="font-semibold text-app">{client.name}</p>
                       {client.company && (
-                        <p className="text-sm text-gray-600">{client.company}</p>
+                        <p className="text-sm text-muted">{client.company}</p>
                       )}
                       {client.email && (
                         <p className="text-sm text-gray-500">{client.email}</p>
@@ -124,9 +124,9 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Последние взаимодействия */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-          <div className="p-6 border-b border-gray-100">
-            <h2 className="text-xl font-semibold text-gray-800">Последние взаимодействия</h2>
+        <div className="surface rounded-xl shadow-sm border border-app">
+          <div className="p-6 border-b border-app">
+            <h2 className="text-xl font-semibold text-app">Последние взаимодействия</h2>
           </div>
           <div className="p-6">
             {data?.recentInteractions && data.recentInteractions.length > 0 ? (
@@ -135,21 +135,21 @@ const Dashboard: React.FC = () => {
                   <button
                     key={interaction.id}
                     onClick={() => navigate(`/clients/${interaction.client_id}`)}
-                    className="w-full p-4 rounded-lg border border-gray-100 hover:bg-gray-50 transition-colors text-left"
+                    className="w-full p-4 rounded-lg border border-app hover:bg-gray-50 transition-colors text-left"
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
                         <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-700">
                           {interaction.type}
                         </span>
-                        <p className="font-medium text-gray-800">{interaction.client_name}</p>
+                        <p className="font-medium text-app">{interaction.client_name}</p>
                       </div>
                       <p className="text-xs text-gray-500">
                         {new Date(interaction.interaction_date).toLocaleDateString('ru-RU')}
                       </p>
                     </div>
                     {interaction.description && (
-                      <p className="text-sm text-gray-600">{interaction.description}</p>
+                      <p className="text-sm text-muted">{interaction.description}</p>
                     )}
                     {interaction.creator_name && (
                       <p className="text-xs text-gray-500 mt-2">Автор: {interaction.creator_name}</p>
@@ -164,9 +164,9 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Топ клиенты */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 lg:col-span-2">
-          <div className="p-6 border-b border-gray-100">
-            <h2 className="text-xl font-semibold text-gray-800">Топ клиенты по сумме заказов</h2>
+        <div className="surface rounded-xl shadow-sm border border-app lg:col-span-2">
+          <div className="p-6 border-b border-app">
+            <h2 className="text-xl font-semibold text-app">Топ клиенты по сумме заказов</h2>
           </div>
           <div className="p-6">
             {data?.topClients && data.topClients.length > 0 ? (
@@ -186,13 +186,13 @@ const Dashboard: React.FC = () => {
                       <tr
                         key={client.id}
                         onClick={() => navigate(`/clients/${client.id}`)}
-                        className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors"
+                        className="border-b border-app hover:bg-gray-50 cursor-pointer transition-colors"
                       >
-                        <td className="py-3 px-4 text-sm text-gray-800">{client.name}</td>
-                        <td className="py-3 px-4 text-sm text-gray-600">{client.company || '-'}</td>
-                        <td className="py-3 px-4 text-sm text-center text-gray-800">{client.orders_count}</td>
-                        <td className="py-3 px-4 text-sm text-center text-gray-800">{client.interactions_count}</td>
-                        <td className="py-3 px-4 text-sm text-right font-semibold text-gray-800 whitespace-nowrap">
+                        <td className="py-3 px-4 text-sm text-app">{client.name}</td>
+                        <td className="py-3 px-4 text-sm text-muted">{client.company || '-'}</td>
+                        <td className="py-3 px-4 text-sm text-center text-app">{client.orders_count}</td>
+                        <td className="py-3 px-4 text-sm text-center text-app">{client.interactions_count}</td>
+                        <td className="py-3 px-4 text-sm text-right font-semibold text-app whitespace-nowrap">
                           {format(parseFloat(client.total_amount))}
                         </td>
                       </tr>

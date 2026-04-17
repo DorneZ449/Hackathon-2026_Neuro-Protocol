@@ -25,8 +25,8 @@ const Navbar: React.FC = () => {
     [
       'inline-flex items-center rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-300',
       isActive
-        ? 'bg-white/90 text-primary-600 shadow-md scale-105'
-        : 'text-muted hover:bg-white/70 hover:text-app hover:scale-105',
+        ? 'bg-[var(--surface)]/90 text-primary-600 shadow-md scale-105'
+        : 'text-muted hover:bg-[var(--surface)]/70 hover:text-app hover:scale-105',
     ].join(' ');
 
   const mobileMenuVariants = {

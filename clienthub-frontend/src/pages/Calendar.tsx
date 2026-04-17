@@ -94,7 +94,7 @@ export default function CalendarPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-4 md:p-6" style={{ height: 'calc(100vh - 250px)', minHeight: '400px', maxHeight: '800px' }}>
+      <div className="surface rounded-lg shadow p-4 md:p-6" style={{ height: 'calc(100vh - 250px)', minHeight: '400px', maxHeight: '800px' }}>
         <Calendar
           localizer={localizer}
           events={events}
@@ -121,7 +121,7 @@ export default function CalendarPage() {
 
       {selectedEvent && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+          <div className="surface rounded-lg p-6 max-w-md w-full">
             <h3 className="text-xl font-bold mb-4">{selectedEvent.title}</h3>
             <div className="space-y-2 text-sm">
               <p><strong>Клиент:</strong> {selectedEvent.clientName}</p>

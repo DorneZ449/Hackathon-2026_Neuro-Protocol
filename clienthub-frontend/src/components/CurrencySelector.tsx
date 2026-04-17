@@ -12,7 +12,7 @@ export default function CurrencySelector() {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="hidden md:inline text-sm text-gray-600">Валюта:</span>
+      <span className="hidden md:inline text-sm text-muted">Валюта:</span>
       <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
         {currencies.map((curr) => (
           <button
@@ -20,8 +20,8 @@ export default function CurrencySelector() {
             onClick={() => setCurrency(curr.code)}
             className={`px-3 py-2.5 rounded text-sm font-medium transition-colors min-h-[44px] min-w-[44px] ${
               currency === curr.code
-                ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'surface text-blue-600 shadow-sm'
+                : 'text-muted hover:text-gray-900'
             }`}
             title={curr.name}
             aria-label={`Выбрать валюту ${curr.name}`}

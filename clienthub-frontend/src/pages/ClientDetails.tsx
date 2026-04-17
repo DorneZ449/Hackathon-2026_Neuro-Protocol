@@ -223,9 +223,9 @@ const ClientDetails: React.FC = () => {
   if (!data) {
     return (
       <div className="p-6 max-w-7xl mx-auto">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-12 text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Клиент не найден</h2>
-          <p className="text-gray-600 mb-4">Возможно, клиент был удалён</p>
+        <div className="surface rounded-xl shadow-sm border border-app p-12 text-center">
+          <h2 className="text-2xl font-bold text-app mb-2">Клиент не найден</h2>
+          <p className="text-muted mb-4">Возможно, клиент был удалён</p>
           <button
             onClick={() => navigate('/clients')}
             className="text-blue-600 hover:text-blue-700 font-medium"
@@ -250,7 +250,7 @@ const ClientDetails: React.FC = () => {
       case 'cancelled':
         return 'bg-red-100 text-red-700';
       default:
-        return 'bg-gray-100 text-gray-700';
+        return 'bg-gray-100 text-app';
     }
   };
 
@@ -303,7 +303,7 @@ const ClientDetails: React.FC = () => {
 
       <button
         onClick={() => navigate('/clients')}
-        className="mb-6 flex items-center gap-2 py-2 px-3 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors min-h-[44px]"
+        className="mb-6 flex items-center gap-2 py-2 px-3 text-muted hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors min-h-[44px]"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -312,7 +312,7 @@ const ClientDetails: React.FC = () => {
       </button>
 
       {/* Карточка клиента */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 mb-6">
+      <div className="surface rounded-xl shadow-sm border border-app p-8 mb-6">
         <div className="flex justify-end mb-4">
           <button
             onClick={() => handleEditClient(client)}
@@ -333,9 +333,9 @@ const ClientDetails: React.FC = () => {
                 </span>
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">{client.name}</h1>
+                <h1 className="text-3xl font-bold text-app mb-2">{client.name}</h1>
                 {client.company && (
-                  <p className="text-lg text-gray-600 flex items-center gap-2">
+                  <p className="text-lg text-muted flex items-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
@@ -348,18 +348,18 @@ const ClientDetails: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               {client.phone && (
                 <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <span className="text-gray-700">{client.phone}</span>
+                  <span className="text-app">{client.phone}</span>
                 </div>
               )}
               {client.email && (
                 <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span className="text-gray-700">{client.email}</span>
+                  <span className="text-app">{client.email}</span>
                 </div>
               )}
             </div>
@@ -374,15 +374,15 @@ const ClientDetails: React.FC = () => {
 
             {client.notes && (
               <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <p className="text-sm font-medium text-gray-700 mb-1">Заметки:</p>
-                <p className="text-gray-600">{client.notes}</p>
+                <p className="text-sm font-medium text-app mb-1">Заметки:</p>
+                <p className="text-muted">{client.notes}</p>
               </div>
             )}
           </div>
 
           <div className="flex flex-col gap-3">
             <div className="bg-blue-50 rounded-lg p-4 text-center">
-              <p className="text-sm text-gray-600 mb-1">Сумма заказов</p>
+              <p className="text-sm text-muted mb-1">Сумма заказов</p>
               <p className="text-2xl font-bold text-blue-600 whitespace-nowrap">
                 {format(totalOrdersAmount)}
               </p>
@@ -399,7 +399,7 @@ const ClientDetails: React.FC = () => {
       </div>
 
       {/* Табы */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+      <div className="surface rounded-xl shadow-sm border border-app">
         <div className="border-b border-gray-200">
           <div className="flex flex-wrap sm:flex-nowrap">
             <button
@@ -407,7 +407,7 @@ const ClientDetails: React.FC = () => {
               className={`flex-1 min-w-[120px] px-4 sm:px-6 py-4 font-medium text-sm sm:text-base transition-colors ${
                 activeTab === 'orders'
                   ? 'border-b-2 border-blue-600 text-blue-600 bg-blue-50'
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  : 'text-muted hover:text-app hover:bg-gray-50'
               }`}
             >
               Заказы ({orders.length})
@@ -417,7 +417,7 @@ const ClientDetails: React.FC = () => {
               className={`flex-1 min-w-[120px] px-4 sm:px-6 py-4 font-medium text-sm sm:text-base transition-colors ${
                 activeTab === 'interactions'
                   ? 'border-b-2 border-blue-600 text-blue-600 bg-blue-50'
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  : 'text-muted hover:text-app hover:bg-gray-50'
               }`}
             >
               Взаимодействия ({interactions.length})
@@ -427,7 +427,7 @@ const ClientDetails: React.FC = () => {
               className={`flex-1 min-w-[120px] px-4 sm:px-6 py-4 font-medium text-sm sm:text-base transition-colors ${
                 activeTab === 'comments'
                   ? 'border-b-2 border-blue-600 text-blue-600 bg-blue-50'
-                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  : 'text-muted hover:text-app hover:bg-gray-50'
               }`}
             >
               Комментарии ({comments.length})
@@ -439,7 +439,7 @@ const ClientDetails: React.FC = () => {
           {activeTab === 'orders' && (
             <div>
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-gray-800">Заказы</h2>
+                <h2 className="text-xl font-semibold text-app">Заказы</h2>
                 <button
                   onClick={() => setShowOrderModal(true)}
                   className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium"
@@ -460,9 +460,9 @@ const ClientDetails: React.FC = () => {
                     <div key={order.id} className="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <h3 className="font-semibold text-lg text-gray-800 mb-2">{order.title}</h3>
+                          <h3 className="font-semibold text-lg text-app mb-2">{order.title}</h3>
                           {order.description && (
-                            <p className="text-gray-600 text-sm mb-3">{order.description}</p>
+                            <p className="text-muted text-sm mb-3">{order.description}</p>
                           )}
                           <p className="text-sm text-gray-500 flex items-center gap-2">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -473,7 +473,7 @@ const ClientDetails: React.FC = () => {
                         </div>
                         <div className="text-right ml-4">
                           {order.amount && (
-                            <p className="text-xl font-bold text-gray-800 mb-2">
+                            <p className="text-xl font-bold text-app mb-2">
                               {format(order.amount)}
                             </p>
                           )}
@@ -501,7 +501,7 @@ const ClientDetails: React.FC = () => {
           {activeTab === 'interactions' && (
             <div>
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-gray-800">Взаимодействия</h2>
+                <h2 className="text-xl font-semibold text-app">Взаимодействия</h2>
                 <button
                   onClick={() => setShowInteractionModal(true)}
                   className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium"
@@ -546,7 +546,7 @@ const ClientDetails: React.FC = () => {
                             </div>
                           </div>
                           {interaction.description && (
-                            <p className="text-gray-700 mb-2">{interaction.description}</p>
+                            <p className="text-app mb-2">{interaction.description}</p>
                           )}
                           {interaction.creator_name && (
                             <p className="text-xs text-gray-500">
@@ -564,7 +564,7 @@ const ClientDetails: React.FC = () => {
 
           {activeTab === 'comments' && (
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-6">Комментарии</h2>
+              <h2 className="text-xl font-semibold text-app mb-6">Комментарии</h2>
               <form onSubmit={handleCreateComment} className="mb-6">
                 <textarea
                   value={commentText}
@@ -606,9 +606,9 @@ const ClientDetails: React.FC = () => {
                 ) : (
                   comments.map((comment) => (
                     <div key={comment.id} className="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow">
-                      <p className="text-gray-800 mb-3">{comment.text}</p>
+                      <p className="text-app mb-3">{comment.text}</p>
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-gray-600 font-medium">{comment.creator_name}</span>
+                        <span className="text-muted font-medium">{comment.creator_name}</span>
                         <div className="flex items-center gap-3">
                           <span className="text-gray-500">
                             {new Date(comment.created_at).toLocaleDateString('ru-RU')}
@@ -635,15 +635,15 @@ const ClientDetails: React.FC = () => {
       {/* Модальные окна */}
       {showOrderModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-800">
+          <div className="surface rounded-xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-app">
+              <h2 className="text-2xl font-bold text-app">
                 {editingOrder ? 'Редактировать заказ' : 'Новый заказ'}
               </h2>
             </div>
             <form onSubmit={handleCreateOrder} className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-app mb-2">
                   Название <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -656,7 +656,7 @@ const ClientDetails: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-app mb-2">
                   Описание
                 </label>
                 <textarea
@@ -668,7 +668,7 @@ const ClientDetails: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-app mb-2">
                   Сумма (₽)
                 </label>
                 <input
@@ -682,7 +682,7 @@ const ClientDetails: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-app mb-2">
                   Статус
                 </label>
                 <select
@@ -713,7 +713,7 @@ const ClientDetails: React.FC = () => {
                     setOrderForm({ title: '', description: '', amount: '', status: 'pending' });
                   }}
                   disabled={isCreatingOrder}
-                  className="flex-1 bg-gray-100 text-gray-700 py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
+                  className="flex-1 bg-gray-100 text-app py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
                 >
                   Отмена
                 </button>
@@ -725,15 +725,15 @@ const ClientDetails: React.FC = () => {
 
       {showInteractionModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-800">
+          <div className="surface rounded-xl shadow-xl w-full max-w-md">
+            <div className="p-6 border-b border-app">
+              <h2 className="text-2xl font-bold text-app">
                 {editingInteraction ? 'Редактировать взаимодействие' : 'Новое взаимодействие'}
               </h2>
             </div>
             <form onSubmit={handleCreateInteraction} className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-app mb-2">
                   Тип <span className="text-red-500">*</span>
                 </label>
                 <select
@@ -751,7 +751,7 @@ const ClientDetails: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-app mb-2">
                   Описание
                 </label>
                 <textarea
@@ -779,7 +779,7 @@ const ClientDetails: React.FC = () => {
                     setInteractionForm({ type: 'call', description: '' });
                   }}
                   disabled={isCreatingInteraction}
-                  className="flex-1 bg-gray-100 text-gray-700 py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
+                  className="flex-1 bg-gray-100 text-app py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
                 >
                   Отмена
                 </button>
@@ -792,13 +792,13 @@ const ClientDetails: React.FC = () => {
       {/* Модальное окно редактирования клиента */}
       {showEditClientModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-800">Редактировать клиента</h2>
+          <div className="surface rounded-xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-app">
+              <h2 className="text-2xl font-bold text-app">Редактировать клиента</h2>
             </div>
             <form onSubmit={handleUpdateClient} className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-app mb-2">
                   Имя <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -811,7 +811,7 @@ const ClientDetails: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-app mb-2">
                   Email
                 </label>
                 <input
@@ -823,7 +823,7 @@ const ClientDetails: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-app mb-2">
                   Телефон
                 </label>
                 <input
@@ -835,7 +835,7 @@ const ClientDetails: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-app mb-2">
                   Компания
                 </label>
                 <input
@@ -847,7 +847,7 @@ const ClientDetails: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-app mb-2">
                   Теги
                 </label>
                 <input
@@ -869,7 +869,7 @@ const ClientDetails: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowEditClientModal(false)}
-                  className="flex-1 bg-gray-100 text-gray-700 py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                  className="flex-1 bg-gray-100 text-app py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium"
                 >
                   Отмена
                 </button>

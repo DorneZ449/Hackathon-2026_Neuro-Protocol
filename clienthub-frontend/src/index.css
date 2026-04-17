@@ -24,41 +24,41 @@
 }
 
 [data-theme='dark'] {
-  --bg: #1a1f2e;
-  --bg-gradient-start: rgba(59, 130, 246, 0.08);
-  --bg-gradient-end: rgba(139, 92, 246, 0.05);
-  --surface: rgba(30, 41, 59, 0.85);
-  --surface-strong: #2d3748;
-  --text: #e2e8f0;
-  --text-secondary: #cbd5e1;
-  --muted: #94a3b8;
-  --border: rgba(148, 163, 184, 0.2);
-  --primary: #60a5fa;
-  --primary-hover: #3b82f6;
-  --primary-contrast: #0f172a;
-  --primary-soft: rgba(96, 165, 250, 0.12);
-  --shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 25px 60px rgba(0, 0, 0, 0.4);
-  --glow: 0 0 20px rgba(96, 165, 250, 0.3);
+  --bg: #0d1117;
+  --bg-gradient-start: rgba(56, 139, 253, 0.05);
+  --bg-gradient-end: rgba(139, 92, 246, 0.03);
+  --surface: #161b22;
+  --surface-strong: #1f2937;
+  --text: #e6edf3;
+  --text-secondary: #9ca3af;
+  --muted: #6b7280;
+  --border: #30363d;
+  --primary: #58a6ff;
+  --primary-hover: #79c0ff;
+  --primary-contrast: #0d1117;
+  --primary-soft: rgba(88, 166, 255, 0.1);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --glow: 0 0 16px rgba(88, 166, 255, 0.25);
 }
 
 [data-theme='cosmic'] {
-  --bg: #0f1419;
-  --bg-gradient-start: rgba(139, 92, 246, 0.1);
-  --bg-gradient-end: rgba(236, 72, 153, 0.06);
-  --surface: rgba(30, 41, 59, 0.8);
-  --surface-strong: rgba(45, 55, 72, 0.9);
-  --text: #e2e8f0;
-  --text-secondary: #cbd5e1;
-  --muted: #a5b4fc;
-  --border: rgba(139, 92, 246, 0.2);
-  --primary: #9f7aea;
-  --primary-hover: #805ad5;
-  --primary-contrast: #ffffff;
-  --primary-soft: rgba(159, 122, 234, 0.15);
-  --shadow: 0 20px 50px rgba(76, 29, 149, 0.25);
-  --shadow-lg: 0 25px 60px rgba(76, 29, 149, 0.35);
-  --glow: 0 0 25px rgba(159, 122, 234, 0.35);
+  --bg: #0b0d14;
+  --bg-gradient-start: rgba(124, 58, 237, 0.06);
+  --bg-gradient-end: rgba(219, 39, 119, 0.04);
+  --surface: #1a1d29;
+  --surface-strong: #252936;
+  --text: #e4e4e7;
+  --text-secondary: #a1a1aa;
+  --muted: #71717a;
+  --border: #3f3f46;
+  --primary: #a78bfa;
+  --primary-hover: #c4b5fd;
+  --primary-contrast: #0b0d14;
+  --primary-soft: rgba(167, 139, 250, 0.1);
+  --shadow: 0 8px 24px rgba(124, 58, 237, 0.2);
+  --shadow-lg: 0 16px 48px rgba(124, 58, 237, 0.3);
+  --glow: 0 0 16px rgba(167, 139, 250, 0.3);
 }
 
 @layer base {

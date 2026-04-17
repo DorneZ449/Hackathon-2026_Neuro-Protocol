@@ -38,7 +38,7 @@ export default function Profile() {
     <div className="container mx-auto px-4 py-8 max-w-2xl">
       <h1 className="text-3xl font-bold mb-6">Профиль</h1>
 
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="surface rounded-lg shadow p-6">
         <div className="flex items-center gap-6 mb-6 pb-6 border-b">
           <div className="w-24 h-24 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-full flex items-center justify-center">
             <span className="text-white font-bold text-4xl">
@@ -46,8 +46,8 @@ export default function Profile() {
             </span>
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">{name}</h2>
-            <p className="text-gray-600">{user.email}</p>
+            <h2 className="text-2xl font-bold text-app">{name}</h2>
+            <p className="text-muted">{user.email}</p>
             <span className="inline-block mt-2 px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
               {user.role === 'admin' ? 'Администратор' : 'Пользователь'}
             </span>
@@ -64,7 +64,7 @@ export default function Profile() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-app mb-2">
               Имя
             </label>
             <input
