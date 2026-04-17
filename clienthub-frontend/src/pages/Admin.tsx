@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCurrency } from '../hooks/useCurrency';
 import api from '../api/axios';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 interface User {
   id: number;
@@ -54,7 +54,6 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'users' | 'clients' | 'orders' | 'interactions'>('users');
   const [searchQuery, setSearchQuery] = useState('');
-  const [changingRoleUserId, setChangingRoleUserId] = useState<number | null>(null);
 
   useEffect(() => {
     if (user && user.role !== 'admin') {
@@ -70,20 +69,6 @@ export default function Admin() {
       console.error('Error fetching admin data:', error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const changeUserRole = async (userId: number, newRole: string) => {
-    setChangingRoleUserId(userId);
-    try {
-      await api.put(`/admin/users/${userId}/role`, { role: newRole });
-      fetchData();
-      toast.success('Роль успешно изменена!');
-    } catch (error) {
-      console.error('Error changing role:', error);
-      toast.error('Ошибка изменения роли');
-    } finally {
-      setChangingRoleUserId(null);
     }
   };
 
@@ -183,7 +168,6 @@ export default function Admin() {
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Email</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Роль</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Создан</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase whitespace-nowrap">Действия</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -196,30 +180,11 @@ export default function Admin() {
                     <span className={`px-2 py-1 rounded text-xs ${
                       u.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'
                     }`}>
-                      {u.role}
+                      {u.role === 'admin' ? 'Администратор' : 'Пользователь'}
                     </span>
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap">
                     {new Date(u.created_at).toLocaleString('ru-RU')}
-                  </td>
-                  <td className="px-4 py-4 whitespace-nowrap">
-                    {u.role === 'admin' ? (
-                      <button
-                        onClick={() => changeUserRole(u.id, 'user')}
-                        disabled={changingRoleUserId === u.id}
-                        className="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        {changingRoleUserId === u.id ? 'Изменение...' : 'Снять админа'}
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => changeUserRole(u.id, 'admin')}
-                        disabled={changingRoleUserId === u.id}
-                        className="px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        {changingRoleUserId === u.id ? 'Изменение...' : 'Сделать админом'}
-                      </button>
-                    )}
                   </td>
                 </tr>
               ))}
