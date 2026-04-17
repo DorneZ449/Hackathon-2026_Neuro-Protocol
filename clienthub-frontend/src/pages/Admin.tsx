@@ -118,7 +118,7 @@ export default function Admin() {
             placeholder="Поиск по имени или email..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full md:w-96 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full md:w-96 px-4 py-2 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       )}

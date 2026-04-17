@@ -490,10 +490,39 @@
     * {
       word-wrap: break-word;
       overflow-wrap: break-word;
+      -webkit-tap-highlight-color: transparent;
     }
 
+    /* Smooth scrolling for mobile */
+    html {
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Disable animations that cause jank on mobile */
     .surface, .card {
       padding: 1rem !important;
+      transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+
+    /* Optimize hover effects for touch */
+    .surface:hover, .card:hover {
+      transform: none !important;
+    }
+
+    /* Better touch targets */
+    button, a, input, select, textarea {
+      min-height: 44px;
+      touch-action: manipulation;
+    }
+
+    /* Reduce motion for better performance */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
 
     h1 {
@@ -524,6 +553,16 @@
 
     .text-xl {
       font-size: 1.125rem !important;
+    }
+
+    /* Smooth modal animations */
+    .fixed.inset-0 {
+      animation: fade-in 0.2s ease-out;
+    }
+
+    /* Optimize input fields for mobile */
+    input, textarea, select {
+      font-size: 16px !important; /* Prevents zoom on iOS */
     }
   }
 }

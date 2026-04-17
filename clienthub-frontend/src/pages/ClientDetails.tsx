@@ -250,7 +250,7 @@ const ClientDetails: React.FC = () => {
       case 'cancelled':
         return 'bg-red-100 text-red-700';
       default:
-        return 'bg-gray-100 text-app';
+        return 'surface border border-app text-app';
     }
   };
 
@@ -570,7 +570,7 @@ const ClientDetails: React.FC = () => {
                   value={commentText}
                   onChange={(e) => setCommentText(e.target.value)}
                   placeholder={editingComment ? "Редактировать комментарий..." : "Добавить комментарий..."}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   rows={3}
                 />
                 <div className="mt-3 flex gap-2">
@@ -588,7 +588,7 @@ const ClientDetails: React.FC = () => {
                         setEditingComment(null);
                         setCommentText('');
                       }}
-                      className="px-6 py-2.5 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
+                      className="px-6 py-2.5 rounded-lg border border-app hover:bg-gray-50 transition-colors"
                     >
                       Отмена
                     </button>
@@ -650,7 +650,7 @@ const ClientDetails: React.FC = () => {
                   type="text"
                   value={orderForm.title}
                   onChange={(e) => setOrderForm({ ...orderForm, title: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
@@ -662,7 +662,7 @@ const ClientDetails: React.FC = () => {
                 <textarea
                   value={orderForm.description}
                   onChange={(e) => setOrderForm({ ...orderForm, description: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   rows={3}
                 />
               </div>
@@ -675,7 +675,7 @@ const ClientDetails: React.FC = () => {
                   type="number"
                   value={orderForm.amount}
                   onChange={(e) => setOrderForm({ ...orderForm, amount: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   min="0"
                   step="0.01"
                 />
@@ -688,7 +688,7 @@ const ClientDetails: React.FC = () => {
                 <select
                   value={orderForm.status}
                   onChange={(e) => setOrderForm({ ...orderForm, status: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="pending">В ожидании</option>
                   <option value="in_progress">В работе</option>
@@ -713,7 +713,7 @@ const ClientDetails: React.FC = () => {
                     setOrderForm({ title: '', description: '', amount: '', status: 'pending' });
                   }}
                   disabled={isCreatingOrder}
-                  className="flex-1 bg-gray-100 text-app py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
+                  className="flex-1 surface border border-app text-app py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
                 >
                   Отмена
                 </button>
@@ -739,7 +739,7 @@ const ClientDetails: React.FC = () => {
                 <select
                   value={interactionForm.type}
                   onChange={(e) => setInteractionForm({ ...interactionForm, type: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="call">Звонок</option>
                   <option value="email">Email</option>
@@ -757,7 +757,7 @@ const ClientDetails: React.FC = () => {
                 <textarea
                   value={interactionForm.description}
                   onChange={(e) => setInteractionForm({ ...interactionForm, description: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   rows={3}
                   placeholder="Опишите детали взаимодействия..."
                 />
@@ -779,7 +779,7 @@ const ClientDetails: React.FC = () => {
                     setInteractionForm({ type: 'call', description: '' });
                   }}
                   disabled={isCreatingInteraction}
-                  className="flex-1 bg-gray-100 text-app py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
+                  className="flex-1 surface border border-app text-app py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
                 >
                   Отмена
                 </button>
@@ -805,7 +805,7 @@ const ClientDetails: React.FC = () => {
                   type="text"
                   value={clientForm.name}
                   onChange={(e) => setClientForm({ ...clientForm, name: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
@@ -818,7 +818,7 @@ const ClientDetails: React.FC = () => {
                   type="email"
                   value={clientForm.email}
                   onChange={(e) => setClientForm({ ...clientForm, email: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -830,7 +830,7 @@ const ClientDetails: React.FC = () => {
                   type="tel"
                   value={clientForm.phone}
                   onChange={(e) => setClientForm({ ...clientForm, phone: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -842,7 +842,7 @@ const ClientDetails: React.FC = () => {
                   type="text"
                   value={clientForm.company}
                   onChange={(e) => setClientForm({ ...clientForm, company: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -854,7 +854,7 @@ const ClientDetails: React.FC = () => {
                   type="text"
                   value={clientForm.tags}
                   onChange={(e) => setClientForm({ ...clientForm, tags: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="VIP, Постоянный клиент"
                 />
               </div>
@@ -869,7 +869,7 @@ const ClientDetails: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowEditClientModal(false)}
-                  className="flex-1 bg-gray-100 text-app py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                  className="flex-1 surface border border-app text-app py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium"
                 >
                   Отмена
                 </button>

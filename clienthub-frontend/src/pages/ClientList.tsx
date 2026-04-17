@@ -148,7 +148,7 @@ const ClientList: React.FC = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Имя, email или телефон..."
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <svg
                 className="absolute left-3 top-3 h-5 w-5 text-gray-400"
@@ -175,7 +175,7 @@ const ClientList: React.FC = () => {
               value={tagFilter}
               onChange={(e) => setTagFilter(e.target.value)}
               placeholder="Фильтр по тегу"
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 
@@ -188,7 +188,7 @@ const ClientList: React.FC = () => {
               value={companyFilter}
               onChange={(e) => setCompanyFilter(e.target.value)}
               placeholder="Фильтр по компании"
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
         </div>
@@ -290,7 +290,7 @@ const ClientList: React.FC = () => {
               <button
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-4 py-2 border border-app rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Назад
               </button>
@@ -303,7 +303,7 @@ const ClientList: React.FC = () => {
                     className={`px-4 py-2 rounded-lg transition-colors ${
                       currentPage === page
                         ? 'bg-blue-600 text-[var(--primary-contrast)]'
-                        : 'border border-gray-300 hover:bg-gray-50'
+                        : 'border border-app hover:bg-gray-50'
                     }`}
                   >
                     {page}
@@ -314,7 +314,7 @@ const ClientList: React.FC = () => {
               <button
                 onClick={() => setCurrentPage(p => Math.min(pagination.totalPages, p + 1))}
                 disabled={currentPage === pagination.totalPages}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-4 py-2 border border-app rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Вперёд
               </button>
@@ -383,7 +383,7 @@ const ClientList: React.FC = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className={`w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    errors.name ? 'border-red-500' : 'border-gray-300'
+                    errors.name ? 'border-red-500' : 'border-app'
                   }`}
                 />
                 {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
@@ -399,7 +399,7 @@ const ClientList: React.FC = () => {
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="+7 (999) 123-45-67"
                   className={`w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    errors.phone ? 'border-red-500' : 'border-gray-300'
+                    errors.phone ? 'border-red-500' : 'border-app'
                   }`}
                 />
                 {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
@@ -415,7 +415,7 @@ const ClientList: React.FC = () => {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="example@mail.com"
                   className={`w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    errors.email ? 'border-red-500' : 'border-gray-300'
+                    errors.email ? 'border-red-500' : 'border-app'
                   }`}
                 />
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -429,7 +429,7 @@ const ClientList: React.FC = () => {
                   type="text"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -442,7 +442,7 @@ const ClientList: React.FC = () => {
                   value={formData.tags}
                   onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                   placeholder="VIP, Постоянный клиент"
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -454,7 +454,7 @@ const ClientList: React.FC = () => {
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   rows={3}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-app rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -473,7 +473,7 @@ const ClientList: React.FC = () => {
                     setErrors({});
                   }}
                   disabled={createClientMutation.isPending}
-                  className="flex-1 bg-gray-100 text-app py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
+                  className="flex-1 surface border border-app text-app py-2.5 rounded-lg hover:bg-gray-200 transition-colors font-medium disabled:opacity-50"
                 >
                   Отмена
                 </button>
