@@ -294,7 +294,7 @@ const ClientDetails: React.FC = () => {
   }, 0);
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-3 sm:p-6 max-w-7xl mx-auto">
       {actionError && (
         <div className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-700">
           {actionError}
@@ -312,7 +312,7 @@ const ClientDetails: React.FC = () => {
       </button>
 
       {/* Карточка клиента */}
-      <div className="surface rounded-xl shadow-sm border border-app p-8 mb-6">
+      <div className="surface rounded-xl shadow-sm border border-app p-4 sm:p-8 mb-6">
         <div className="flex justify-end mb-4">
           <button
             onClick={() => handleEditClient(client)}
@@ -332,10 +332,10 @@ const ClientDetails: React.FC = () => {
                   {client.name.charAt(0).toUpperCase()}
                 </span>
               </div>
-              <div>
-                <h1 className="text-3xl font-bold text-app mb-2">{client.name}</h1>
+              <div className="min-w-0 flex-1">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-app mb-2 break-words">{client.name}</h1>
                 {client.company && (
-                  <p className="text-lg text-muted flex items-center gap-2">
+                  <p className="text-sm sm:text-base md:text-lg text-muted flex items-center gap-2 break-words">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
@@ -347,43 +347,43 @@ const ClientDetails: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               {client.phone && (
-                <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                  <svg className="w-5 h-5 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg min-w-0">
+                  <svg className="w-5 h-5 text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <span className="text-app">{client.phone}</span>
+                  <span className="text-app text-sm sm:text-base break-all">{client.phone}</span>
                 </div>
               )}
               {client.email && (
-                <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                  <svg className="w-5 h-5 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg min-w-0">
+                  <svg className="w-5 h-5 text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span className="text-app">{client.email}</span>
+                  <span className="text-app text-sm sm:text-base break-all">{client.email}</span>
                 </div>
               )}
             </div>
 
             {client.tags && (
               <div className="mb-4">
-                <span className="inline-block bg-blue-50 text-blue-700 text-sm px-4 py-2 rounded-full font-medium">
+                <span className="inline-block bg-blue-50 text-blue-700 text-xs sm:text-sm px-3 sm:px-4 py-2 rounded-full font-medium break-words max-w-full">
                   {client.tags}
                 </span>
               </div>
             )}
 
             {client.notes && (
-              <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <p className="text-sm font-medium text-app mb-1">Заметки:</p>
-                <p className="text-muted">{client.notes}</p>
+              <div className="p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <p className="text-xs sm:text-sm font-medium text-app mb-1">Заметки:</p>
+                <p className="text-muted text-sm break-words">{client.notes}</p>
               </div>
             )}
           </div>
 
-          <div className="flex flex-col gap-3">
-            <div className="bg-blue-50 rounded-lg p-4 text-center">
-              <p className="text-sm text-muted mb-1">Сумма заказов</p>
-              <p className="text-2xl font-bold text-blue-600 whitespace-nowrap">
+          <div className="flex flex-col gap-3 w-full md:w-auto">
+            <div className="bg-blue-50 rounded-lg p-3 sm:p-4 text-center">
+              <p className="text-xs sm:text-sm text-muted mb-1">Сумма заказов</p>
+              <p className="text-lg sm:text-xl md:text-2xl font-bold text-blue-600 break-words">
                 {format(totalOrdersAmount)}
               </p>
             </div>
@@ -435,14 +435,14 @@ const ClientDetails: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-6">
+        <div className="p-3 sm:p-6">
           {activeTab === 'orders' && (
             <div>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-app">Заказы</h2>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
+                <h2 className="text-lg sm:text-xl font-semibold text-app">Заказы</h2>
                 <button
                   onClick={() => setShowOrderModal(true)}
-                  className="bg-blue-600 text-[var(--primary-contrast)] px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium"
+                  className="w-full sm:w-auto bg-blue-600 text-[var(--primary-contrast)] px-4 sm:px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium text-sm sm:text-base"
                 >
                   + Добавить заказ
                 </button>
@@ -457,32 +457,32 @@ const ClientDetails: React.FC = () => {
                   </div>
                 ) : (
                   orders.map((order) => (
-                    <div key={order.id} className="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow">
-                      <div className="flex justify-between items-start">
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-lg text-app mb-2">{order.title}</h3>
+                    <div key={order.id} className="border border-gray-200 rounded-lg p-3 sm:p-5 hover:shadow-md transition-shadow">
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
+                        <div className="flex-1 min-w-0 w-full">
+                          <h3 className="font-semibold text-base sm:text-lg text-app mb-2 break-words">{order.title}</h3>
                           {order.description && (
-                            <p className="text-muted text-sm mb-3">{order.description}</p>
+                            <p className="text-muted text-sm mb-3 break-words">{order.description}</p>
                           )}
-                          <p className="text-sm text-gray-500 flex items-center gap-2">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <p className="text-xs sm:text-sm text-gray-500 flex items-center gap-2">
+                            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                             {new Date(order.order_date).toLocaleDateString('ru-RU')}
                           </p>
                         </div>
-                        <div className="text-right ml-4">
+                        <div className="flex flex-row sm:flex-col items-center sm:items-end gap-2 sm:gap-0 w-full sm:w-auto sm:text-right">
                           {order.amount && (
-                            <p className="text-xl font-bold text-app mb-2">
+                            <p className="text-base sm:text-xl font-bold text-app mb-0 sm:mb-2 break-words">
                               {format(order.amount)}
                             </p>
                           )}
-                          <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(order.status)}`}>
+                          <span className={`inline-block px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap ${getStatusColor(order.status)}`}>
                             {getStatusText(order.status)}
                           </span>
                           <button
                             onClick={() => handleEditOrder(order)}
-                            className="mt-2 flex items-center gap-1 text-blue-600 hover:text-blue-700 text-sm"
+                            className="mt-0 sm:mt-2 flex items-center gap-1 text-blue-600 hover:text-blue-700 text-xs sm:text-sm whitespace-nowrap"
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
