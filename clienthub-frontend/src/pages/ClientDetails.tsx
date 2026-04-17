@@ -281,7 +281,7 @@ const ClientDetails: React.FC = () => {
           <div className="flex flex-col gap-3">
             <div className="bg-blue-50 rounded-lg p-4 text-center">
               <p className="text-sm text-gray-600 mb-1">Сумма заказов</p>
-              <p className="text-2xl font-bold text-blue-600">
+              <p className="text-2xl font-bold text-blue-600 whitespace-nowrap">
                 {format(totalOrdersAmount)}
               </p>
             </div>

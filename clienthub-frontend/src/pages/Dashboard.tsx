@@ -72,11 +72,11 @@ const Dashboard: React.FC = () => {
 
         <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
-            <div>
+            <div className="flex-1 min-w-0">
               <p className="text-sm text-gray-600 mb-1">Сумма заказов</p>
-              <p className="text-3xl font-bold text-gray-800">{format(stats.ordersTotal)}</p>
+              <p className="text-3xl font-bold text-gray-800 whitespace-nowrap">{format(stats.ordersTotal)}</p>
             </div>
-            <div className="bg-yellow-100 p-3 rounded-lg">
+            <div className="bg-yellow-100 p-3 rounded-lg flex-shrink-0">
               <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -191,7 +191,7 @@ const Dashboard: React.FC = () => {
                         <td className="py-3 px-4 text-sm text-gray-600">{client.company || '-'}</td>
                         <td className="py-3 px-4 text-sm text-center text-gray-800">{client.orders_count}</td>
                         <td className="py-3 px-4 text-sm text-center text-gray-800">{client.interactions_count}</td>
-                        <td className="py-3 px-4 text-sm text-right font-semibold text-gray-800">
+                        <td className="py-3 px-4 text-sm text-right font-semibold text-gray-800 whitespace-nowrap">
                           {format(parseFloat(client.total_amount))}
                         </td>
                       </tr>

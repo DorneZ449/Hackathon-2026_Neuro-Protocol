@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useAuth } from '../context/AuthContext';
 import ProfileDropdown from './ProfileDropdown';
 import CurrencySelector from './CurrencySelector';
 
@@ -11,7 +10,6 @@ type NavItem = {
 };
 
 const Navbar: React.FC = () => {
-  const { user } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const items = useMemo<NavItem[]>(
@@ -19,11 +17,8 @@ const Navbar: React.FC = () => {
       { to: '/dashboard', label: 'Дашборд' },
       { to: '/clients', label: 'Клиенты' },
       { to: '/calendar', label: 'Календарь' },
-      ...(user?.role === 'admin' ? [{ to: '/admin', label: 'Админ' }] : []),
-      { to: '/profile', label: 'Профиль' },
-      { to: '/settings', label: 'Настройки' },
     ],
-    [user?.role]
+    []
   );
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -67,12 +62,14 @@ const Navbar: React.FC = () => {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <NavLink to="/dashboard" className="flex min-w-0 items-center gap-3 group">
           <motion.div
-            className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-600 to-secondary-600 text-sm font-bold text-white shadow-glow-sm"
+            className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-600 to-secondary-600 shadow-glow-sm overflow-hidden"
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2 }}
           >
-            NP
+            <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
           </motion.div>
           <div className="min-w-0">
             <div className="truncate text-sm font-semibold text-app group-hover:text-primary transition-colors">

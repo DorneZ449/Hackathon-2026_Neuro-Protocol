@@ -52,7 +52,7 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         EUR: '€',
         CNY: '¥'
       };
-      return `0.00 ${symbols[currency]}`;
+      return `0 ${symbols[currency]}`;
     }
 
     const converted = convert(numAmount, from, currency);
@@ -63,7 +63,14 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       CNY: '¥'
     };
 
-    return `${converted.toFixed(2)} ${symbols[currency]}`;
+    // Форматирование с точками как разделителями тысяч
+    const formatted = new Intl.NumberFormat('ru-RU', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+      useGrouping: true
+    }).format(Math.round(converted)).replace(/\s/g, '.');
+
+    return `${formatted} ${symbols[currency]}`;
   };
 
   return (
