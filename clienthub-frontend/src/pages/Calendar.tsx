@@ -130,7 +130,7 @@ export default function CalendarPage() {
             </div>
             <button
               onClick={() => setSelectedEvent(null)}
-              className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+              className="mt-4 w-full bg-blue-600 text-[var(--primary-contrast)] py-2 rounded-lg hover:bg-blue-700"
             >
               Закрыть
             </button>

@@ -442,7 +442,7 @@ const ClientDetails: React.FC = () => {
                 <h2 className="text-xl font-semibold text-app">Заказы</h2>
                 <button
                   onClick={() => setShowOrderModal(true)}
-                  className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium"
+                  className="bg-blue-600 text-[var(--primary-contrast)] px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium"
                 >
                   + Добавить заказ
                 </button>
@@ -504,7 +504,7 @@ const ClientDetails: React.FC = () => {
                 <h2 className="text-xl font-semibold text-app">Взаимодействия</h2>
                 <button
                   onClick={() => setShowInteractionModal(true)}
-                  className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium"
+                  className="bg-blue-600 text-[var(--primary-contrast)] px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium"
                 >
                   + Добавить взаимодействие
                 </button>
@@ -577,7 +577,7 @@ const ClientDetails: React.FC = () => {
                   <button
                     type="submit"
                     disabled={!commentText.trim() || isCreatingComment}
-                    className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+                    className="bg-blue-600 text-[var(--primary-contrast)] px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
                   >
                     {isCreatingComment ? 'Сохранение...' : editingComment ? 'Сохранить' : 'Добавить комментарий'}
                   </button>
@@ -701,7 +701,7 @@ const ClientDetails: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isCreatingOrder}
-                  className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-blue-600 text-[var(--primary-contrast)] py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isCreatingOrder ? 'Сохранение...' : editingOrder ? 'Сохранить' : 'Создать'}
                 </button>
@@ -767,7 +767,7 @@ const ClientDetails: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isCreatingInteraction}
-                  className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-blue-600 text-[var(--primary-contrast)] py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isCreatingInteraction ? 'Сохранение...' : editingInteraction ? 'Сохранить' : 'Создать'}
                 </button>
@@ -862,7 +862,7 @@ const ClientDetails: React.FC = () => {
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="flex-1 bg-blue-600 text-[var(--primary-contrast)] py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium"
                 >
                   Сохранить
                 </button>

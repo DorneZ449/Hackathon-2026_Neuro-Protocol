@@ -35,7 +35,7 @@ export default function ProfileDropdown() {
         className="flex items-center gap-2 sm:gap-3 px-2 sm:px-4 py-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
       >
         <div className="w-8 h-8 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-full flex items-center justify-center">
-          <span className="text-white font-semibold text-sm">{initials}</span>
+          <span className="text-[var(--primary-contrast)] font-semibold text-sm">{initials}</span>
         </div>
         <span className="hidden sm:inline text-sm font-medium text-app">{user.name}</span>
         <svg

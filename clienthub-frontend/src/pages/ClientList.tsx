@@ -129,7 +129,7 @@ const ClientList: React.FC = () => {
         <h1 className="text-3xl font-bold text-app">Клиенты</h1>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium"
+          className="bg-blue-600 text-[var(--primary-contrast)] px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium"
         >
           + Добавить клиента
         </button>
@@ -302,7 +302,7 @@ const ClientList: React.FC = () => {
                     onClick={() => setCurrentPage(page)}
                     className={`px-4 py-2 rounded-lg transition-colors ${
                       currentPage === page
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-blue-600 text-[var(--primary-contrast)]'
                         : 'border border-gray-300 hover:bg-gray-50'
                     }`}
                   >
@@ -462,7 +462,7 @@ const ClientList: React.FC = () => {
                 <button
                   type="submit"
                   disabled={createClientMutation.isPending}
-                  className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-blue-600 text-[var(--primary-contrast)] py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {createClientMutation.isPending ? 'Создание...' : 'Создать'}
                 </button>

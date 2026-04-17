@@ -41,7 +41,7 @@ export default function Profile() {
       <div className="surface rounded-lg shadow p-6">
         <div className="flex items-center gap-6 mb-6 pb-6 border-b">
           <div className="w-24 h-24 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-4xl">
+            <span className="text-[var(--primary-contrast)] font-bold text-4xl">
               {name.charAt(0).toUpperCase()}
             </span>
           </div>
@@ -79,7 +79,7 @@ export default function Profile() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+            className="w-full bg-blue-600 text-[var(--primary-contrast)] py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
           >
             {isLoading ? 'Сохранение...' : 'Сохранить изменения'}
           </button>

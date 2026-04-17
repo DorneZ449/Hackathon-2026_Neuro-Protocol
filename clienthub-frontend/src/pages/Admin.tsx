@@ -105,7 +105,7 @@ export default function Admin() {
         <button
           onClick={fetchData}
           disabled={loading}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-4 py-2 bg-blue-600 text-[var(--primary-contrast)] rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {loading ? 'Загрузка...' : 'Обновить'}
         </button>
@@ -127,7 +127,7 @@ export default function Admin() {
         <button
           onClick={() => setActiveTab('users')}
           className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base whitespace-nowrap ${
-            activeTab === 'users' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+            activeTab === 'users' ? 'bg-blue-600 text-[var(--primary-contrast)]' : 'bg-gray-200'
           }`}
         >
           Пользователи ({data.users.length})
@@ -135,7 +135,7 @@ export default function Admin() {
         <button
           onClick={() => setActiveTab('clients')}
           className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base whitespace-nowrap ${
-            activeTab === 'clients' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+            activeTab === 'clients' ? 'bg-blue-600 text-[var(--primary-contrast)]' : 'bg-gray-200'
           }`}
         >
           Клиенты ({data.clients.length})
@@ -143,7 +143,7 @@ export default function Admin() {
         <button
           onClick={() => setActiveTab('orders')}
           className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base whitespace-nowrap ${
-            activeTab === 'orders' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+            activeTab === 'orders' ? 'bg-blue-600 text-[var(--primary-contrast)]' : 'bg-gray-200'
           }`}
         >
           Заказы ({data.orders.length})
@@ -151,7 +151,7 @@ export default function Admin() {
         <button
           onClick={() => setActiveTab('interactions')}
           className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base whitespace-nowrap ${
-            activeTab === 'interactions' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+            activeTab === 'interactions' ? 'bg-blue-600 text-[var(--primary-contrast)]' : 'bg-gray-200'
           }`}
         >
           Взаимодействия ({data.interactions.length})
