@@ -12,8 +12,16 @@ const ClientDetails: React.FC = () => {
   const { format } = useCurrency();
   const clientId = Number(id);
   const [activeTab, setActiveTab] = useState<'orders' | 'interactions' | 'comments'>('orders');
+  
+  // Modals
   const [showOrderModal, setShowOrderModal] = useState(false);
   const [showInteractionModal, setShowInteractionModal] = useState(false);
+  const [showEditClientModal, setShowEditClientModal] = useState(false);
+  const [editingOrder, setEditingOrder] = useState<any>(null);
+  const [editingInteraction, setEditingInteraction] = useState<any>(null);
+  const [editingComment, setEditingComment] = useState<any>(null);
+  
+  // States
   const [commentText, setCommentText] = useState('');
   const [isCreatingOrder, setIsCreatingOrder] = useState(false);
   const [isCreatingInteraction, setIsCreatingInteraction] = useState(false);
@@ -35,6 +43,14 @@ const ClientDetails: React.FC = () => {
   const [interactionForm, setInteractionForm] = useState({
     type: 'call',
     description: '',
+  });
+
+  const [clientForm, setClientForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    tags: '',
   });
 
   const { data, isLoading, isError, refetch } = useQuery({
